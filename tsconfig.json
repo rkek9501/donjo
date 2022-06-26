@@ -1,0 +1,22 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["ES6", "ES2017", "ES2020"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "target": "esnext",
+    "strict": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+}

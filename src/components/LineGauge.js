@@ -101,6 +101,7 @@ const LineGauge = props => {
 
     return values.map((val, i) => {
       let intervalSize = _getIntervalSize(val);
+      console.log({ intervalSize }, val * unitSize);
 
       return (
         <View key={`val-${i}`} style={styles.intervalContainer}>
@@ -212,11 +213,11 @@ LineGauge.defaultProps = {
 
 var styles = StyleSheet.create({
   box: {
-    height: 100,
-    // backgroundColor: 'blue',
+    height: 200,
+    backgroundColor: 'blue',
   },
   container: {
-    height: 455,
+    height: 100,
     width: GAUGE_WIDTH,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,

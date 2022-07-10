@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, { useState, useEffect, Component, useRef, useCallback } from 'react';
+import React, { useState, useEffect, Component, useRef, useCallback, useMemo } from "react";
 
 import {
   SafeAreaView,
@@ -14,32 +6,36 @@ import {
   StatusBar,
   StyleSheet,
   useColorScheme,
-  TextInput,
-  View,
   Text,
-  FlatList,
-  Button,
-} from 'react-native';
+} from "react-native";
+import type { Connection } from "typeorm/browser";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import LineGauge from "./src/components/LineGauge";
+import Button from "./src/components/Button";
+import Input from "./src/components/Input";
+import BottomSheet from "./src/components/BottomSheet";
 
-import type { Connection } from 'typeorm/browser';
-// import { GestureHandlerRootView } from 'react-native-gesture-handler';
-// import LineGauge from './src/components/LineGauge';
-
-import connectDB, { Group, Member, Pay, Bill, Dutch } from './src/db/entities';
-import ComplexResolver from './src/db/resolvers/complex';
+import connectDB from "./src/db/entities";
+import ComplexResolver from "./src/db/resolvers/complex";
+import useStore, { DATE_FORMAT, StoreTypes } from "./src/store/calculate";
 import moment from "moment";
-
-// realm;
+import useBSStore, { BottomSheetStoreTypes } from "./src/store/bottomSheet";
+import Card from "./src/components/Card";
+moment.locale("ko");
 
 const App = () => {
+  const state = useStore((state: StoreTypes) => state);
+  const setPrice = useStore((state: StoreTypes) => state.setPrice);
+  const setPlace = useStore((state: StoreTypes) => state.setPlace);
+  const setDate = useStore((state: StoreTypes) => state.setDate);
+  const setName = useStore((state: StoreTypes) => state.setName);
+  const { onClose, onOpen } = useBSStore((state: BottomSheetStoreTypes) => state);
+
+  const [value2, setValue2] = useState(1000);
   const [connection, setconnection] = useState<Connection | null>(null);
+  const [memberText, setMemberText] = useState<string>("Member");
 
-  const [memberText, setMemberText] = useState<string>('Member');
-  const [price, setPrice] = useState<number>(0);
-  const [place, setPlace] = useState<string>("장소")
-  const [date, setDate] = useState<Date>(new Date())
-
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
 
   useEffect(() => {
     try {
@@ -53,13 +49,13 @@ const App = () => {
   }, []);
 
   const onPress = async () => {
-    console.log({ memberText, price, place, date })
+    console.log(JSON.stringify({ state }, null, 2));
     await new ComplexResolver().create({
       billInput: null,
       payInput: {
-        place,
-        price,
-        date,
+        place: state.place,
+        price: state.price,
+        date: state.date.toDate(),
       },
       groupInput: null,
       membersInput: [{
@@ -72,47 +68,40 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView >
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {/* <ScrollView
-        contentInsetAdjustmentBehavior="automatic" > */}
-        <View style={styles.inline}>
-          <Text>멤버</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setMemberText}
-            value={memberText}
-          />
-        </View>
-        <View style={styles.inline}>
-          <Text>금액</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={t => setPrice(Number(t))}
-            keyboardType="numeric"
-            value={`${price}`}
-          />
-        </View>
-        <View style={styles.inline}>
-          <Text>장소</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setPlace}
-            value={place}
-          />
-        </View>
-        <View style={styles.inline}>
-          <Text>날짜</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={d => setDate(moment(d).toDate())}
-            value={`${date}`}
-          />
-        </View>
+    <SafeAreaView style={{zIndex: 0, flex: 1, paddingHorizontal: 0 }}>
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
+      <ScrollView contentInsetAdjustmentBehavior="automatic" >
+        <Card></Card>
+        <Text style={styles.dates}>
+          {moment(state.date).format(DATE_FORMAT)}
+        </Text>
+        <Input
+          label="모임명을 설정해주세요."
+          value={memberText}
+          placeholder="모임명을 설정해주세요."
+          onChangeText={setName}
+        />
+
+        <Input
+          label="장소는 어디인가요?"
+          value={state.place}
+          placeholder="장소는 어디인가요?"
+          onChangeText={setPlace}
+        />
+
+        <Input
+          label="얼마를 결제했나요?"
+          type="numeric"
+          value={`${state.price}`}
+          required
+          placeholder="얼마를 결제했나요?"
+          onChangeText={t => setPrice(Number(t))}
+        />
         <Button
-          onPress={onPress}
           title="확인"
-          color="lightpink"
+          style={{ backgroundColor: "lightpink" }}
+          onPress={onPress}
+          disabled={true}
         />
         {/* {groupList && groupList.length > 0 && <FlatList
           data={groupList}
@@ -129,20 +118,26 @@ const App = () => {
             onChange={setValue2}
           />
         </GestureHandlerRootView> */}
-      {/* </ScrollView> */}
+        {/* <Button title="Member" onPress={() => onOpen("member", (data) => console.log({ data }))} />
+        <Button title="Ruler" onPress={() => onOpen("ruler", (data) => console.log({ data }))} />
+        <Button title="Close" onPress={onClose} /> */}
+      </ScrollView>
+      <BottomSheet />
     </SafeAreaView>
   );
 };
 
 
 const styles = StyleSheet.create({
-  inline: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  input: {
-
+  dates: {
+    display: "flex",
+    fontSize: 20,
+    textAlign: "center",
+    paddingVertical: 10,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "lightgreen"
   },
   sectionContainer: {
     marginTop: 32,
@@ -150,15 +145,15 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   highlight: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
 });
 

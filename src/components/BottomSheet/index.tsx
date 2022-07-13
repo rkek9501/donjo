@@ -21,7 +21,7 @@ const BottomSheetComponent = () => {
   const [name, setName] = useState("");
   // const [open, setOpen] = useState(false);
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["1%", "20%", "50%"], []);
+  const snapPoints = useMemo(() => ["1%", "40%", "50%"], []);
 
   useEffect(() => {
     console.log({open})
@@ -72,10 +72,11 @@ const BottomSheetComponent = () => {
       snapPoints={snapPoints}
       onChange={onChnage}
       backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: "lightblue" }}
+      backgroundStyle={{}}
+      handleIndicatorStyle={{ width: 40, backgroundColor: "#E3E3E7" }}
       keyboardBehavior="fillParent"
     >
-      <BottomSheetView style={{ backgroundColor: "lightblue" }}>
+      <BottomSheetView>
         {type === "member" && <MemberView callback={okCallback} />}
         {type === "ruler" && <RulerView callback={okCallback} />}
       </BottomSheetView>

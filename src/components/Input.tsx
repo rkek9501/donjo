@@ -10,14 +10,16 @@ type InputProps = {
   value: number | string;
   onChangeText: (e: string | number) => void;
   style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   type?: KeyboardTypeOptions;
   placeholder?: string;
   label?: string;
   required?: boolean;
+  selectionColor?: string;
 };
 
 const Input = (Props: InputProps) => {
-  return <View style={[styles.container]}>
+  return <View style={[styles.container, Props.containerStyle]}>
     {Props.label && <Text style={[styles.label]}>
       {Props.label}
       {typeof Props.required !== "undefined" && <Text style={styles.required}>*</Text>}
@@ -28,6 +30,7 @@ const Input = (Props: InputProps) => {
       value={`${Props.value || ""}`}
       placeholder={Props.placeholder || ""}
       onChangeText={Props.onChangeText}
+      selectionColor={Props.selectionColor}
     />
   </View>
 }

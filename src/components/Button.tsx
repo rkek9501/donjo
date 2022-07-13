@@ -11,6 +11,7 @@ type ButtonProps = {
   title?: string;
   disabled?: boolean;
   onPress?: (e: GestureResponderEvent) => void;
+  round?: boolean;
 };
 
 const Button = (Props: ButtonProps) => {
@@ -20,6 +21,7 @@ const Button = (Props: ButtonProps) => {
       styles.container,
       Props.style,
       !Props.disabled ? styles.enabledContainer : styles.disabledContainer,
+      Props?.round && { borderRadius: 26 },
     ]}
     onPress={Props.onPress}>
     <Text style={[!Props.disabled ? styles.button : styles.disabledButton]}>
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     height: 52,
-    borderRadius: 26,
   },
   enabledContainer: {
     backgroundColor: "#000000",

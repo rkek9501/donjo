@@ -1,4 +1,9 @@
 {
   "name": "donjo",
-  "displayName": "donjo"
+  "displayName": "donjo",
+  "build": {
+    "babel": {
+      "include": [ "@ui-kitten/components" ]
+    }
+  }
 }

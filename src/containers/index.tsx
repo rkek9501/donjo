@@ -5,12 +5,14 @@ import {
   StyleSheet,
   useColorScheme,
   Text,
+  View,
+  Dimensions,
 } from "react-native";
 import type { Connection } from "typeorm/browser";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import LineGauge from "../../src/components/LineGauge";
+// import { GestureHandlerRootView } from "react-native-gesture-handler";
+// import LineGauge from "../../src/components/LineGauge";
 import Button from "../../src/components/Button";
-import Input from "../../src/components/Input";
+// import Input from "../../src/components/Input";
 
 import connectDB from "../../src/db/entities";
 import ComplexResolver from "../../src/db/resolvers/complex";
@@ -19,6 +21,7 @@ import moment from "moment";
 import useBSStore, { BottomSheetStoreTypes } from "../../src/store/bottomSheet";
 import Card from "../../src/components/Card";
 moment.locale("ko");
+
 
 const ContainerWrapper = () => {
   const state = useStore((state: StoreTypes) => state);
@@ -67,9 +70,6 @@ const ContainerWrapper = () => {
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" >
       <Card></Card>
-      <Text style={styles.dates}>
-        {moment(state.date).format(DATE_FORMAT)}
-      </Text>
       {/* <Input
         label="모임명을 설정해주세요."
         value={memberText}

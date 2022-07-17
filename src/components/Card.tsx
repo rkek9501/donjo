@@ -14,6 +14,8 @@ import Animated, {
 import usePageStore, { PageStoreTypes } from '../store';
 import Button from './Button';
 import { NextCard } from './Icons';
+import PopoverDatePicker from './PopoverDatePicker';
+import useStore, { DATE_FORMAT, StoreTypes } from "../../src/store/calculate";
 
 const CardDistance = 25;
 const MaxWidth = Dimensions.get("screen").width;
@@ -64,6 +66,9 @@ const CardWrapper = (Props: CardWrapperProps) => {
 };
 
 const Card = () => {
+  const calcState = useStore((state: StoreTypes) => state);
+  const setDate = useStore((state: StoreTypes) => state.setDate);
+  
   const state = usePageStore((state: PageStoreTypes) => state);
   const { page, setPage, activePage, setActivePage } = state;
 
@@ -80,6 +85,7 @@ const Card = () => {
   return <View style={[styles.container]}>
     <CardWrapper page={0} currPage={page} active={activePage === 0} onClickNext={onClickNext}>
       <Text style={[styles.title, {color: "#281B14"}]}>새로운 모임 작성하기</Text>
+      <PopoverDatePicker date={calcState.date} setDate={setDate}/>
       <Button title={activePage === -1 ? "in" : "out"} onPress={() => onClickActive(0)} />
     </CardWrapper>
     <CardWrapper page={1} currPage={page} active={activePage === 1} onClickNext={onClickNext}>

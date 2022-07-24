@@ -1,16 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, KeyboardAvoidingView } from 'react-native';
 import times from 'lodash.times';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Svg, { Path } from 'react-native-svg';
 import Animated from 'react-native-reanimated';
 import Input from './Input';
 import Button from './Button';
-
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+import { parsePrice } from '../util/parser';
+import { HighlightColor } from '../styles';
 
 const GAUGE_WIDTH = Math.floor(Dimensions.get('window').width);
 const INTERVAL_WIDTH = 16;
@@ -22,7 +20,7 @@ const calcScale = (v, inputMin, inputMax, outputMin, outputMax, unitSize) => {
 const initialMin = 10;
 const initialMax = 100;
 
-const LineGauge = props => {
+const SlideRuler = props => {
   const [valueScales, setValueScales] = useState({
     min: 10, max: 100, unitSize: 10
   })
@@ -120,13 +118,13 @@ const LineGauge = props => {
 
   return (
     <GestureHandlerRootView>
-      <View style={[styles.container]}>
+      <View style={[styles.container, props.containerStyle]}>
         <View style={[styles.inputContainer]}>
           <Input
-            value={priceToString(value)}
+            value={parsePrice(value)}
             style={[styles.customInput]}
             onChangeText={setValue}
-            selectionColor="#F8503E"
+            selectionColor={HighlightColor}
           />
         </View>
         <Animated.ScrollView
@@ -151,7 +149,7 @@ const LineGauge = props => {
         </Animated.ScrollView>
         <View style={[styles.centerline]}>
           <Svg style={[styles.centerlineSvg]} width="14" height="8" viewBox="0 0 14 8" fill="none">
-            <Path d="M7 8L0 0L14 0L7 8Z" fill="#F8503E" />
+            <Path d="M7 8L0 0L14 0L7 8Z" fill={HighlightColor} />
           </Svg>
         </View>
         <Button style={{height: 30, width: 20, right: 0, position: "absolute"}} title="+" onPress={() => {
@@ -171,7 +169,7 @@ const LineGauge = props => {
   );
 };
 
-LineGauge.propTypes = {
+SlideRuler.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   unitSize: PropTypes.number,
@@ -182,7 +180,7 @@ LineGauge.propTypes = {
   styles: PropTypes.object,
 };
 
-LineGauge.defaultProps = {
+SlideRuler.defaultProps = {
   min: 100,
   max: 1000,
   unitSize: 10,
@@ -195,7 +193,8 @@ LineGauge.defaultProps = {
 var styles = StyleSheet.create({
   container: {
     height: 150,
-    width: GAUGE_WIDTH,
+    // width: GAUGE_WIDTH,
+    width: "100%",
     backgroundColor: 'white',
     // marginVertical: 8,
   },
@@ -245,7 +244,7 @@ var styles = StyleSheet.create({
   centerline: {
     height: 52,
     width: 2,
-    backgroundColor: '#F8503E',
+    backgroundColor: HighlightColor,
     position: 'absolute',
     left: GAUGE_WIDTH / 2 - 1,
     bottom: 0,
@@ -270,9 +269,9 @@ var styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#EDEDED",
     borderWidth: 0,
-    textDecorationColor: "#F8503E",
+    textDecorationColor: HighlightColor,
     paddingHorizontal: 0,
   }
 });
 
-export default LineGauge;
+export default SlideRuler;

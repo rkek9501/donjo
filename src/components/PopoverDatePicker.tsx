@@ -9,12 +9,14 @@ const MaxWidth = Dimensions.get("screen").width;
 type PopoverDatePickerProps = {
   date: moment.Moment | null;
   setDate: (date: moment.Moment | null) => void;
+  onFocus?: () => void;
 };
 
 const PopoverDatePicker = (Props: PopoverDatePickerProps) => {
   return (
     <Popover
       width={MaxWidth - 60}
+      onFocus={Props.onFocus}
       text={moment(Props.date).isValid() ? moment(Props.date).format("YYYY/ MM/ DD") : "날짜를 선택해주세요."} >
       <CalendarView
           date={Props.date}

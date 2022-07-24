@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     height: 52,
+    minWidth: 60,
   },
   enabledContainer: {
     backgroundColor: "#000000",

@@ -6,6 +6,7 @@ import { Member } from '../db/entities';
 
 export const DATE_FORMAT = "YYYY.MM.DD"
 
+type Steps = number;
 type StoreStates = {
   name: string;
   price: number;
@@ -13,6 +14,7 @@ type StoreStates = {
   date: moment.Moment;
   members: Member[];
   bottomSheetRef: any;
+  step: Steps;
 }
 
 type StoreActions = {
@@ -22,6 +24,7 @@ type StoreActions = {
   setDate: (date: moment.Moment) => void;
   addMember: (member: Member) => void;
   removeMember: (member: Member) => void;
+  setStep: (step: Steps) => void;
 }
 
 export type StoreTypes = StoreStates & StoreActions;
@@ -33,11 +36,13 @@ const initialState: StoreStates = {
   date: moment(),
   members: [],
   bottomSheetRef: null,
+  step: 0,
 }
 
 const useCalcStore = create((set, get) => ({
   ...initialState,
-  loadTempData: (data) => set(() => ({ ...data })), 
+  setStep: (step) => set(() => ({ step })),
+  loadTempData: (data) => set(() => ({ ...data })),
   setName: (name) => set(() => ({ name })),
   setPrice: (price) => set(() => ({ price })),
   setPlace: (place) => set(() => ({ place })),

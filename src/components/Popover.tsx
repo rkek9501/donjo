@@ -9,6 +9,7 @@ type PopoverProps = {
   width?: number;
   mode?: PopoverMode;
   placement?: PopoverPlacement;
+  onFocus?: () => void;
 }
 const PopoverView = (Props: PopoverProps) => {
   const touchable = useRef();
@@ -18,7 +19,7 @@ const PopoverView = (Props: PopoverProps) => {
     <>
       <TouchableOpacity ref={touchable} onPress={() => setOpen(true)}>
         {typeof Props.text === "string"
-          ? <Text style={{color: "black"}}>{Props.text}</Text>
+          ? <Text style={{color: "black", padding: 8}}>{Props.text}</Text>
           : Props.text
         }
       </TouchableOpacity>
@@ -27,9 +28,11 @@ const PopoverView = (Props: PopoverProps) => {
         placement={Props.placement || PopoverPlacement.AUTO}
         from={touchable}
         isVisible={open}
-        arrowShift={-0.5}
+        arrowShift={-0.7}
+        // arrowSize={0}
         backgroundStyle={{ opacity: 0.5 }}
         popoverStyle={{ width: Props.width }}
+        onOpenStart={() => Props.onFocus?.()}
         onRequestClose={() => setOpen(false)}>
         {Props.children}
       </Popover>

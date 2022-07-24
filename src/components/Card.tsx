@@ -5,7 +5,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions
 } from "react-native";
 import Animated, {
   useSharedValue, useAnimatedStyle,
@@ -16,11 +15,7 @@ import Button from './Button';
 import { NextCard } from './Icons';
 import PopoverDatePicker from './PopoverDatePicker';
 import useStore, { DATE_FORMAT, StoreTypes } from "../../src/store/calculate";
-
-const CardDistance = 25;
-const MaxWidth = Dimensions.get("screen").width;
-const CardWidth = MaxWidth - (CardDistance * 2);
-const bgColors = ["#FEBB39", "#F8503E", "#3C7873"];
+import Styles, { ScreenWidth, CardDistance, CardWidth, cardBgColors, ScreenHeight } from "../styles";
 
 type Page = 0 | 1 | 2;
 type CardWrapperProps = {
@@ -46,17 +41,18 @@ const CardWrapper = (Props: CardWrapperProps) => {
   const animatedStyles = useAnimatedStyle(() => {
     return {
       zIndex: withDelay(300, withTiming(curr.value === ThisPage ? 3 : curr.value === NextPage ? 1 : 2)),
-      width: withTiming(active ? MaxWidth : CardWidth, { duration: 300 }),
+      // width: withTiming(active ? ScreenWidth : CardWidth, { duration: 300 }),
+      width: ScreenWidth,
       borderTopRightRadius: withTiming(active ? 0 : 30, { duration: 200 }),
-      backgroundColor: bgColors[page],
+      backgroundColor: cardBgColors[page],
       transform: [{
-        translateX: curr.value === NextPage ? withSequence(withTiming(-CardWidth, { duration: 500 }), withTiming(CardDistance*2)) : withTiming(curr.value === PrevPage ? CardDistance : 0),
+        translateX: curr.value === NextPage ? withSequence(withTiming(-ScreenWidth, { duration: 500 }), withTiming(CardDistance*2)) : withTiming(curr.value === PrevPage ? CardDistance : 0),
         // scale: curr.value === 1 ? withSequence(withTiming(0.1, { duration: 200 }), withTiming(1)) : withTiming(1),
       }],
     };
   });
-  return <Animated.View style={[styles.cardContainer, animatedStyles]}>
-    <View style={[styles.cardWrapper]}>
+  return <Animated.View style={[styles.cardContainer, animatedStyles, Styles.shadow]}>
+    <View style={[styles.cardWrapper, { width: CardWidth }]}>
       {children}
     </View>
     {!active && <TouchableOpacity style={[styles.next]} onPress={onClickNext}>
@@ -104,11 +100,11 @@ const styles = StyleSheet.create({
     position: "relative",
     display: "flex",
     width: "100%",
-    height: 166,
+    height: ScreenHeight,
   },
   cardContainer: {
     position: "absolute",
-    height: 166,
+    height: ScreenHeight,
     paddingVertical: 24,
     paddingHorizontal: 25,
     flexDirection: "row",

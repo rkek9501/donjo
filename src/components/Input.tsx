@@ -16,6 +16,7 @@ type InputProps = {
   label?: string;
   required?: boolean;
   selectionColor?: string;
+  onFocus?: () => void;
 };
 
 const Input = (Props: InputProps) => {
@@ -31,6 +32,7 @@ const Input = (Props: InputProps) => {
       placeholder={Props.placeholder || ""}
       onChangeText={Props.onChangeText}
       selectionColor={Props.selectionColor}
+      onFocus={Props.onFocus}
     />
   </View>
 }
@@ -47,8 +49,8 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 50,
-    paddingHorizontal: 24,
-    marginBottom: 16,
+    // paddingHorizontal: 24,
+    // marginBottom: 16,
     borderColor: "#C4C4C4",
     borderWidth: 1,
     borderRadius: 4,

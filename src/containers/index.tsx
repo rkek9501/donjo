@@ -20,8 +20,12 @@ import useStore, { DATE_FORMAT, StoreTypes } from "../../src/store/calculate";
 import moment from "moment";
 import useBSStore, { BottomSheetStoreTypes } from "../../src/store/bottomSheet";
 import Card from "../../src/components/Card";
+import Main from "./main";
+import Member from "./member";
 moment.locale("ko");
 
+const Height = Dimensions.get("screen").height;
+const Width = Dimensions.get("screen").width;
 
 const ContainerWrapper = () => {
   const state = useStore((state: StoreTypes) => state);
@@ -68,8 +72,10 @@ const ContainerWrapper = () => {
   }
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" >
-      <Card></Card>
+    <View style={styles.wrapper}>
+      {/* <Card /> */}
+      <Main />
+      <Member />
       {/* <Input
         label="모임명을 설정해주세요."
         value={memberText}
@@ -113,14 +119,18 @@ const ContainerWrapper = () => {
           onChange={setValue2}
         />
       </GestureHandlerRootView> */}
-      <Button title="Member" onPress={() => onOpen("member", (data) => console.log({ data }))} />
+      {/* <Button title="Member" onPress={() => onOpen("member", (data) => console.log({ data }))} />
       <Button title="Ruler" onPress={() => onOpen("ruler", (data) => console.log({ data }))} />
-      <Button title="Close" onPress={onClose} />
-    </ScrollView>
+      <Button title="Close" onPress={onClose} /> */}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    height: Height,
+    width: Width
+  },
   dates: {
     display: "flex",
     fontSize: 20,

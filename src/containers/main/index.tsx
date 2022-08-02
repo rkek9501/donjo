@@ -19,6 +19,7 @@ import Step1 from './step1';
 import Step2 from './step2';
 import Step3 from './step3';
 import Step4 from './step4';
+import moment from 'moment';
 
 const Main = () => {
   const setActivePage = usePageStore((state: PageStoreTypes) => state.setActivePage);
@@ -56,6 +57,7 @@ const Main = () => {
   const onPressIntro = () => {
     setStep(0);
     setActivePage(0);
+    if (!name) setName(moment().format("M월 D일의 모임"));
   };
 
   return <KeyboardAvoidingView style={[styles.mainContainer]}>
@@ -63,12 +65,15 @@ const Main = () => {
       <TouchableWithoutFeedback onPress={onPressIntro}>
         <Animated.View style={[styles.intro]} >
           <View style={[styles.introCenter]}>
-            <Input
+            {!isActive
+              ? <Text style={styles.newTitle}>새로운 모임{"\n"}작성하기</Text>
+              : <Input
               value={name}
               onChangeText={setName}
               style={{borderWidth: 0}}
               onFocus={onPressIntro}
               placeholder="새로운 모임 작성하기" />
+            }
             <PopoverDatePicker
               date={calcState.date}
               setDate={setDate}
@@ -126,8 +131,14 @@ export const styles = StyleSheet.create({
   },
   introCenter: {
     height: CardHieght,
+    justifyContent: "space-around",
   },
-
+  newTitle: {
+    marginTop: 24,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#281B14",
+  },
   stepWrapper: {
     bottom: 0,
     left: 0,

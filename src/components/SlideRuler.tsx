@@ -121,6 +121,7 @@ const SlideRuler = props => {
       <View style={[styles.container, props.containerStyle]}>
         <View style={[styles.inputContainer]}>
           <Input
+            type="number-pad"
             value={parsePrice(value)}
             style={[styles.customInput]}
             onChangeText={setValue}

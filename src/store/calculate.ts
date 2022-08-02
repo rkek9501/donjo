@@ -15,6 +15,7 @@ type StoreStates = {
   members: Member[];
   bottomSheetRef: any;
   step: Steps;
+  payer: Member | null;
 }
 
 type StoreActions = {
@@ -22,7 +23,9 @@ type StoreActions = {
   setPrice: (price: number) => void;
   setPlace: (place: string) => void;
   setDate: (date: moment.Moment) => void;
+  setPayer: (payer: Member) => void;
   addMember: (member: Member) => void;
+  changeMember: (index: number, member: Member) => void;
   removeMember: (member: Member) => void;
   setStep: (step: Steps) => void;
 }
@@ -37,6 +40,7 @@ const initialState: StoreStates = {
   members: [],
   bottomSheetRef: null,
   step: 0,
+  payer: null,
 }
 
 const useCalcStore = create((set, get) => ({
@@ -47,9 +51,15 @@ const useCalcStore = create((set, get) => ({
   setPrice: (price) => set(() => ({ price })),
   setPlace: (place) => set(() => ({ place })),
   setDate: (date) => set(() => ({ date: moment(date) })),
+  setPayer: (payer) =>  set(() => ({ payer })),
   addMember: (member) => set((state: StoreStates) => {
     const members = state.members;
     members.push(member);
+    return { members }
+  }),
+  changeMemeber: (index: number, member: Member) => set((state: StoreStates) => {
+    const members = state.members;
+    members[index] = member;
     return { members }
   }),
   removeMember: (member) => set((state: StoreStates) => {

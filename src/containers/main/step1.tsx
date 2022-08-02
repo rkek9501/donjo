@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import Animated, {
-  useSharedValue, useAnimatedStyle, withTiming
-} from "react-native-reanimated";
+import { View, Text, Alert } from 'react-native';
+import Animated, { useSharedValue } from "react-native-reanimated";
 import Button from '../../components/Button';
 
 import useStore, { StoreTypes } from "../../../src/store/calculate";
@@ -53,8 +51,17 @@ const ExpenseForm = () => {
     </View>
     <SlideRuler onChange={setPrice} />
     <Button round title="다음1"
-      style={{ width: ScreenWidth - 48, marginBottom: 60, marginTop: 40 }}
-      onPress={() => setStep(2)} />
+      style={{ width: ScreenWidth - 48, marginBottom: 30, marginTop: 40 }}
+      onPress={() => {
+        if (Number(price) > 0) setStep(2);
+        else {
+            Alert.alert("결제 금액 입력",
+            "결제 금액이 입력되지 않았습니다. 결제 금액을 입력해주세요.",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ])
+          }
+      }} />
   </>);
 }
 

@@ -31,7 +31,7 @@ export const TitleAnimationView = (Props: {
       fontWeight: "400",
     }
   }, [Props.isCurrStep]);
-  return <Animated.View style={[TitleAnim, { flexDirection:"row", justifyContent: Props.isCurrStep ? "center" : "space-between" }]}>
+  return <Animated.View style={[TitleAnim, { flexDirection:"row", marginBottom: 24, justifyContent: Props.isCurrStep ? "center" : "space-between" }]}>
     <View style={{
       flexDirection: Props.isCurrStep ? "column" : "row",
       justifyContent: "center",

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import Animated, {
-  useSharedValue,
-} from "react-native-reanimated";
+import Animated, { useSharedValue } from "react-native-reanimated";
 import Button from '../../components/Button';
 
 import useStore, { StoreTypes } from "../../store/calculate";
@@ -31,7 +29,7 @@ const Step4 = () => {
         preview={<ValueView value={"0"} unit="명" />}
       />
       {step === 4 && <Button round title="다음4"
-        style={{ width: ScreenWidth - 48, marginBottom: 60 }}
+        style={{ width: ScreenWidth - 48, marginBottom: 30 }}
         onPress={() => setStep(4)} />}
     </>}
   </Animated.View>;

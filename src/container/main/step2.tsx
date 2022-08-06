@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import React, { useEffect } from "react";
+import { Alert, ScrollView, View } from "react-native";
 import Animated, { useSharedValue } from "react-native-reanimated";
-import Button from '../../components/Button';
-import List from '../../components/List';
+import Button from "Component/Button";
+import List from "Component/List";
 
-import useStore, { StoreTypes } from "../../store/calculate";
+import useStore from "Store/calculate";
 import Styles, { ScreenWidth } from "../../styles";
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from './commons';
-import { styles } from '.';
-import useList from '../../util/useList';
+import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
+import { styles } from ".";
 
 const Step2 = () => {
-  const calcState = useStore((state: StoreTypes) => state);
-  const list = useStore((state: StoreTypes) => state.members);
-  const addItem = useStore((state: StoreTypes) => state.addMember);
-  // const changeItem = useStore((state: StoreTypes) => state.changeMemeber);
-  const removeItem = useStore((state: StoreTypes) => state.removeMember);
+  const calcState = useStore((state: any) => state);
+  const list = useStore((state: any) => state.members);
+  const addItem = useStore((state: any) => state.addMember);
+  // const changeItem = useStore((state: any) => state.changeMemeber);
+  const removeItem = useStore((state: any) => state.removeMember);
   const { step, setStep } = calcState;
   const sharedStep = useSharedValue(step);
   // const { list, addItem, changeItem, removeItem } = useList([]);
@@ -42,7 +41,7 @@ const Step2 = () => {
       {step === 2 && <ScrollView style={{flex: 1}}>
         <List
           data={list}
-          onPressItem={(item) => console.log({ item })}
+          onPressItem={(item: any) => console.log({ item })}
           onRemoveItem={removeItem}
         />
         <View style={{flexDirection: "row", marginBottom: 30, width: 50, alignSelf:"center"}}>

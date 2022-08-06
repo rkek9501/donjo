@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
-import { Alert, Text } from 'react-native';
+import React, { useEffect } from "react";
+import { Alert, Text } from "react-native";
 import Animated, { useSharedValue } from "react-native-reanimated";
 
-import Button from '../../components/Button';
+import Styles, { ScreenWidth } from "../../styles";
+import Button from "Component/Button";
+import Dropdown from "Component/Dropdown";
 
-import useStore, { StoreTypes } from "../../store/calculate";
-import Styles, {
-  ScreenWidth,
-} from "../../styles";
-import { styles } from '.';
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from './commons';
-import Dropdown from '../../components/Dropdown';
+import useStore from "Store/calculate";
+
+import { styles } from ".";
+import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
 
 const Step3 = () => {
-  const calcState = useStore((state: StoreTypes) => state);
-  const list = useStore((state: StoreTypes) => state.members);
-  const setPayer = useStore((state: StoreTypes) => state.setPayer);
+  const calcState = useStore((state: any) => state);
+  const list = useStore((state: any) => state.members);
+  const setPayer = useStore((state: any) => state.setPayer);
   const { step, setStep } = calcState;
   const sharedStep = useSharedValue(step);
 

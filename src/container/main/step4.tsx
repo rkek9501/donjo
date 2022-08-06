@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import Animated, { useSharedValue } from "react-native-reanimated";
-import Button from '../../components/Button';
 
-import useStore, { StoreTypes } from "../../store/calculate";
-import Styles, {
-  ScreenWidth,
-} from "../../styles";
-import { styles } from '.';
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from './commons';
+import Styles, { ScreenWidth } from "../../styles";
+import Button from "Component/Button";
+
+import useStore from "Store/calculate";
+
+import { styles } from ".";
+import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
 
 const Step4 = () => {
-  const calcState = useStore((state: StoreTypes) => state);
+  const calcState = useStore((state: any) => state);
   const { step, setStep } = calcState;
   const sharedStep = useSharedValue(step);
 

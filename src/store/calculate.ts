@@ -1,8 +1,8 @@
-import create from 'zustand';
+import create from "zustand";
 import moment from "moment";
 moment.locale("ko");
 
-import { Member } from '../db/entities';
+import { Member } from "../db/entities";
 
 export const DATE_FORMAT = "YYYY.MM.DD"
 
@@ -45,14 +45,14 @@ const initialState: StoreStates = {
 
 const useCalcStore = create((set, get) => ({
   ...initialState,
-  setStep: (step) => set(() => ({ step })),
-  loadTempData: (data) => set(() => ({ ...data })),
-  setName: (name) => set(() => ({ name })),
-  setPrice: (price) => set(() => ({ price })),
-  setPlace: (place) => set(() => ({ place })),
-  setDate: (date) => set(() => ({ date: moment(date) })),
-  setPayer: (payer) =>  set(() => ({ payer })),
-  addMember: (member) => set((state: StoreStates) => {
+  setStep: (step: any) => set(() => ({ step })),
+  loadTempData: (data: any) => set(() => ({ ...data })),
+  setName: (name: string) => set(() => ({ name })),
+  setPrice: (price: number) => set(() => ({ price })),
+  setPlace: (place: string) => set(() => ({ place })),
+  setDate: (date: moment.Moment) => set(() => ({ date: moment(date) })),
+  setPayer: (payer: Member) =>  set(() => ({ payer })),
+  addMember: (member: Member) => set((state: StoreStates) => {
     const members = state.members;
     members.push(member);
     return { members }
@@ -62,8 +62,8 @@ const useCalcStore = create((set, get) => ({
     members[index] = member;
     return { members }
   }),
-  removeMember: (member) => set((state: StoreStates) => {
-    const idx = state.members.findIndex(member);
+  removeMember: (member: Member) => set((state: StoreStates) => {
+    const idx = state.members.findIndex((mem: Member) => JSON.stringify(member) === JSON.stringify(mem)) as number;
     const members = state.members.splice(idx, 1);
     return { members }
   }),

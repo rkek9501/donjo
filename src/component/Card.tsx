@@ -14,7 +14,7 @@ import usePageStore, { PageStoreTypes } from '../store';
 import Button from './Button';
 import { NextCard } from './Icons';
 import PopoverDatePicker from './PopoverDatePicker';
-import useStore, { DATE_FORMAT, StoreTypes } from "../../src/store/calculate";
+import useStore, { DATE_FORMAT, StoreTypes } from "Store/calculate";
 import Styles, { ScreenWidth, CardDistance, CardWidth, cardBgColors, ScreenHeight } from "../styles";
 
 type Page = 0 | 1 | 2;

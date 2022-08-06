@@ -1,31 +1,36 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
+import React, { useEffect } from "react";
+import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
 import Animated, {
   useSharedValue, useAnimatedStyle, withTiming
 } from "react-native-reanimated";
-import Button from '../../components/Button';
-import PopoverDatePicker from '../../components/PopoverDatePicker';
 
-import usePageStore, { PageStoreTypes } from "../../store";
-import useStore, { StoreTypes } from "../../../src/store/calculate";
 import {
-  ScreenWidth, ScreenHeight,
-  cardBgColors, CardWidth, CardHieght,
+  ScreenWidth, ScreenHeight, cardBgColors, CardWidth, CardHieght,
 } from "../../styles";
-import Input from '../../components/Input';
-import { NextCard } from '../../components/Icons';
-import useBackHandler from '../../util/useBackHandler';
-import Step1 from './step1';
-import Step2 from './step2';
-import Step3 from './step3';
-import Step4 from './step4';
-import moment from 'moment';
+import Button from "Component/Button";
+import PopoverDatePicker from "Component/PopoverDatePicker";
+import Input from "Component/Input";
+import { NextCard } from "Component/Icons";
+
+import useBackHandler from "Hook/useBackHandler";
+
+import usePageStore from "Store/index";
+import useStore from "Store/calculate";
+import useModalStore from "Store/modal";
+
+import Step1 from "./step1";
+import Step2 from "./step2";
+import Step3 from "./step3";
+import Step4 from "./step4";
+import moment from "moment";
 
 const Main = () => {
-  const setActivePage = usePageStore((state: PageStoreTypes) => state.setActivePage);
-  const isActive = usePageStore((state: PageStoreTypes) => (state.page === 0 && state.activePage === 0));
+  const setActivePage = usePageStore((state: any) => state.setActivePage);
+  const isActive = usePageStore((state: any) => (state.page === 0 && state.activePage === 0));
   
-  const calcState = useStore((state: StoreTypes) => state);
+  const modal = useModalStore((state: any) => state);
+  
+  const calcState = useStore((state: any) => state);
   const { step, setDate, setStep, name, setName } = calcState;
   const sharedStep = useSharedValue(step);
   
@@ -82,6 +87,8 @@ const Main = () => {
           </View>
         </Animated.View>
       </TouchableWithoutFeedback>
+
+      <Button title="open" onPress={() => modal.openModal({ type: "alert", msg: "aaa" })}></Button>
       {!isActive
         ? <TouchableOpacity style={[styles.next]} onPress={() => {}}><NextCard /></TouchableOpacity>
         : <Button round title="다음"

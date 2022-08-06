@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
-import { View, Text, Alert } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Text, Alert } from "react-native";
 import Animated, { useSharedValue } from "react-native-reanimated";
-import Button from '../../components/Button';
 
-import useStore, { StoreTypes } from "../../../src/store/calculate";
-import Styles, {
-  ScreenWidth,
-} from "../../styles";
-import { styles } from '.';
-import SlideRuler from '../../components/SlideRuler';
-import { parsePrice } from '../../util/parser';
-import { Dot } from '../../styles/icon';
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from './commons';
+import Styles, { ScreenWidth } from "../../styles";
+import Button from "Component/Button";
+import SlideRuler from "Component/SlideRuler";
+
+import { parsePrice } from "Util/parser";
+import useStore, { StoreTypes } from "Store/calculate";
+
+import { styles } from ".";
+import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
 
 const Step1 = () => {
-  const calcState = useStore((state: StoreTypes) => state);
+  const calcState = useStore((state: any) => state);
   const { step, setStep, price, setPrice } = calcState;
   const sharedStep = useSharedValue(step);
 
@@ -39,7 +38,7 @@ const Step1 = () => {
 };
 
 const ExpenseForm = () => {
-  const calcState = useStore((state: StoreTypes) => state);
+  const calcState = useStore((state: any) => state);
   const { setStep, price, setPrice } = calcState;
 
   return (<>

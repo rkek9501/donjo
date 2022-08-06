@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  ScrollView,
   StyleSheet,
   useColorScheme,
-  Text,
   View,
   Dimensions,
 } from "react-native";
 import type { Connection } from "typeorm/browser";
-// import { GestureHandlerRootView } from "react-native-gesture-handler";
-// import LineGauge from "../../src/components/LineGauge";
-import Button from "../../src/components/Button";
-// import Input from "../../src/components/Input";
-
-import connectDB from "../../src/db/entities";
-import ComplexResolver from "../../src/db/resolvers/complex";
-import useStore, { DATE_FORMAT, StoreTypes } from "../../src/store/calculate";
 import moment from "moment";
-import useBSStore, { BottomSheetStoreTypes } from "../../src/store/bottomSheet";
-import Card from "../../src/components/Card";
+moment.locale("ko");
+// import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import connectDB from "DB/entities";
+import ComplexResolver from "DB/resolvers/complex";
+
+import useStore, { StoreTypes } from "Store/calculate";
+import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
+
 import Main from "./main";
 import Member from "./member";
-moment.locale("ko");
 
 const Height = Dimensions.get("screen").height;
 const Width = Dimensions.get("screen").width;

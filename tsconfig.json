@@ -11,12 +11,22 @@
     "moduleResolution": "node",
     "noEmit": true,
     "target": "esnext",
-    "strict": false,
+    "strict": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "Component/*": ["src/component/*"],
+      "Container/*": ["src/container/*"],
+      "DB/*": ["src/db/*"],
+      "Hook/*": ["src/hook/*"],
+      "Store/*": ["src/store/*"],
+      "Util/*": ["src/util/*"],
+    }
   },
+  "include": ["./**/*"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

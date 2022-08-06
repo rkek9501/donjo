@@ -7,12 +7,14 @@ import {
   useColorScheme,
 } from "react-native";
 import type { Connection } from "typeorm/browser";;
-import BottomSheet from "./src/components/BottomSheet";
-
-import connectDB from "./src/db/entities";
 import moment from "moment";
-import ContainerWrapper from "./src/containers";
 moment.locale("ko");
+
+import connectDB from "DB/entities/index";
+
+import BottomSheet from "Component/BottomSheet";
+import ContainerWrapper from "Container/index";
+import CustomModal from "Container/modal/index";
 
 const App = () => { 
   const [connection, setconnection] = useState<Connection | null>(null);
@@ -33,6 +35,7 @@ const App = () => {
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <ContainerWrapper />
+      <CustomModal/>
       <BottomSheet />
     </SafeAreaView>
   );

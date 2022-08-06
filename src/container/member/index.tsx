@@ -5,14 +5,14 @@ import Animated, {
   withDelay, withTiming, withSequence
 } from "react-native-reanimated";
 
-import usePageStore, { PageStates, PageStoreTypes } from "../../store";
+import usePageStore, { PageStates, PageStoreTypes } from "Store/index";
 import Styles, { ContainerHeight, ActiveContainerHeight, ScreenWidth, ScreenHeight } from "../../styles";
 
 
 const Main = () => {
   const page = usePageStore((state: PageStoreTypes) => state.page);
   const isActive = usePageStore((state: PageStoreTypes) => (state.page === 0 && state.activePage === 0));
-
+  
   const animatedStyles = useAnimatedStyle(() => {
     // height: withTiming(isActive ? ActiveContainerHeight : ContainerHeight, { duration: 200 }),
     return {

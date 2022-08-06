@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Dimensions, View, Text, KeyboardAvoidingView } from 'react-native';
-import times from 'lodash.times';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Svg, { Path } from 'react-native-svg';
-import Animated from 'react-native-reanimated';
-import Input from './Input';
-import Button from './Button';
-import { parsePrice } from '../util/parser';
-import { HighlightColor } from '../styles';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, Dimensions, View, Text, KeyboardAvoidingView } from "react-native";
+import times from "lodash.times";
+import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
+import Svg, { Path } from "react-native-svg";
+import Animated from "react-native-reanimated";
+import Input from "./Input";
+import Button from "./Button";
+import { parsePrice } from "Util/parser";
+import { HighlightColor } from "../styles";
 
-const GAUGE_WIDTH = Math.floor(Dimensions.get('window').width);
+const GAUGE_WIDTH = Math.floor(Dimensions.get("window").width);
 const INTERVAL_WIDTH = 16;
 
 const calcScale = (v, inputMin, inputMax, outputMin, outputMax, unitSize) => {
@@ -67,12 +67,12 @@ const SlideRuler = props => {
   const _getIntervalSize = val => {
     let { largeInterval, mediumInterval } = props;
     if (val % largeInterval === 0) {
-      return 'large';
+      return "large";
     }
     if (val % mediumInterval === 0) {
-      return 'medium';
+      return "medium";
     }
-    return 'small';
+    return "small";
   };
 
   const _renderIntervals = useCallback(() => {
@@ -84,9 +84,9 @@ const SlideRuler = props => {
       let intervalSize = _getIntervalSize(val);
 
       return (
-        <View key={`val-${i}`} style={[styles.intervalContainer, { zIndex: intervalSize === 'large' ? 2 : 0}]}>
+        <View key={`val-${i}`} style={[styles.intervalContainer, { zIndex: intervalSize === "large" ? 2 : 0}]}>
           <View style={[styles.interval, styles[intervalSize]]} />
-          {intervalSize === 'large' && (
+          {intervalSize === "large" && (
             <Text style={[styles.intervalValue]}>
               {val * unitSize}
             </Text>
@@ -98,22 +98,22 @@ const SlideRuler = props => {
 
   const pinchGesture = Gesture.Pinch()
     .onStart(e => {
-      console.log('onStart', JSON.stringify(e, null, 2));
+      console.log("onStart", JSON.stringify(e, null, 2));
     })
     .onChange(e => {
-      console.log('onChange', JSON.stringify(e, null, 2));
+      console.log("onChange", JSON.stringify(e, null, 2));
     })
     .onBegin(e => {
-      console.log('onBegin', JSON.stringify(e, null, 2));
+      console.log("onBegin", JSON.stringify(e, null, 2));
     })
     .onUpdate(e => {
-      console.log('onUpdate', JSON.stringify(e, null, 2));
+      console.log("onUpdate", JSON.stringify(e, null, 2));
     })
     .onEnd(e => {
-      console.log('onEnd', JSON.stringify(e, null, 2));
+      console.log("onEnd", JSON.stringify(e, null, 2));
     })
     .onFinalize(e => {
-      console.log('onFinalize', JSON.stringify(e, null, 2));
+      console.log("onFinalize", JSON.stringify(e, null, 2));
     });
 
   return (
@@ -196,32 +196,32 @@ var styles = StyleSheet.create({
     height: 150,
     // width: GAUGE_WIDTH,
     width: "100%",
-    backgroundColor: 'white',
+    backgroundColor: "white",
     // marginVertical: 8,
   },
   intervals: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    alignItems: "flex-end",
     height: 100,
     paddingHorizontal: GAUGE_WIDTH / 2,
     marginHorizontal: -INTERVAL_WIDTH / 2,
   },
   intervalContainer: {
     width: INTERVAL_WIDTH,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'column-reverse',
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "column-reverse",
     zIndex: 1,
   },
   interval: {
-    position: 'absolute',
+    position: "absolute",
     width: 2,
     marginRight: -1,
-    backgroundColor: '#979797',
+    backgroundColor: "#979797",
   },
   intervalValue: {
-    position: 'absolute',
+    position: "absolute",
     display: "flex",
     width: 100,
     textAlign: "center",
@@ -238,7 +238,7 @@ var styles = StyleSheet.create({
     height: 40,
   },
   large: {
-    backgroundColor: '#4A4A4A',
+    backgroundColor: "#4A4A4A",
     width: 2,
     height: 50,
   },
@@ -246,17 +246,17 @@ var styles = StyleSheet.create({
     height: 52,
     width: 2,
     backgroundColor: HighlightColor,
-    position: 'absolute',
+    position: "absolute",
     left: GAUGE_WIDTH / 2 - 1,
     bottom: 0,
   },
   centerlineSvg: {
-    position: 'absolute',
+    position: "absolute",
     left: -6,
     top: -1,
   },
   inputContainer: {
-    position: 'absolute',
+    position: "absolute",
     alignItems: "center",
     height: 50,
     left: 0,

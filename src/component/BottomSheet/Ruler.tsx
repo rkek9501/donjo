@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { View } from "react-native";
 
-import { BottomSheetCallback } from "../../store/bottomSheet";
+import { BottomSheetCallback } from "Store/bottomSheet";
 import Button from "../Button";
 import SlideRuler from "../SlideRuler";
 

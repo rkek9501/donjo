@@ -2,17 +2,14 @@ import React, { useRef, useCallback, useMemo, useEffect, useState } from "react"
 
 import {
   View,
-  Text,
-  BackHandler
 } from "react-native";
 
 import BottomSheet, {
   BottomSheetView,
   BottomSheetBackdrop,
-  BottomSheetTextInput
 } from '@gorhom/bottom-sheet';
 
-import useBSStore, { BottomSheetStoreTypes } from "../../store/bottomSheet";
+import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
 import MemberView from "./Member";
 import RulerView from "./Ruler";
 

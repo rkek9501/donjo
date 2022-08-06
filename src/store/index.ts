@@ -1,4 +1,4 @@
-import create from 'zustand';
+import create from "zustand";
 
 export type Page = 0 | 1 | 2;
 export type PageStates = {

@@ -1,15 +1,14 @@
-import React, { useRef, useCallback, useMemo, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
   View,
   Text,
-  BackHandler
 } from "react-native";
 
 import {
   BottomSheetTextInput
 } from '@gorhom/bottom-sheet';
-import { BottomSheetCallback } from "../../store/bottomSheet";
+import { BottomSheetCallback } from "Store/bottomSheet";
 import Button from "../Button";
 
 

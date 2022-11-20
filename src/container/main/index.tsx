@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity, Text, Key
 import Animated, {
   useSharedValue, useAnimatedStyle, withTiming
 } from "react-native-reanimated";
+import moment from "moment";
 
 import {
   ScreenWidth, ScreenHeight, cardBgColors, CardWidth, CardHieght,
@@ -22,7 +23,7 @@ import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
 import Step4 from "./step4";
-import moment from "moment";
+import { styles } from "./commons";
 
 const Main = () => {
   const setActivePage = usePageStore((state: any) => state.setActivePage);
@@ -88,7 +89,7 @@ const Main = () => {
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <Button title="open" onPress={() => modal.openModal({ type: "alert", msg: "aaa" })}></Button>
+      {/* <Button title="open" onPress={() => modal.openModal({ type: "member", msg: "aaa", callback: (data: any) => console.log({ data }) })}></Button> */}
       {!isActive
         ? <TouchableOpacity style={[styles.next]} onPress={() => {}}><NextCard /></TouchableOpacity>
         : <Button round title="다음"
@@ -108,56 +109,5 @@ const Main = () => {
     </View>}
   </KeyboardAvoidingView>
 };
-
-export const styles = StyleSheet.create({
-  mainContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    zIndex: 2,
-    width: ScreenWidth,
-  },
-  pageMain: {
-    backgroundColor: cardBgColors[0],
-    justifyContent: "center",
-    alignItems: "center",
-    width: CardWidth,
-    paddingHorizontal: 12,
-  },
-  next: {
-    width: 48,
-    height: 29,
-  },
-  intro: {
-    display: "flex",
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-  },
-  introCenter: {
-    height: CardHieght,
-    justifyContent: "space-around",
-  },
-  newTitle: {
-    marginTop: 24,
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#281B14",
-  },
-  stepWrapper: {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
-    backgroundColor: "white",
-  },
-  stepContainer: {
-    width: "100%",
-    height: "100%",
-  }
-});
 
 export default Main;

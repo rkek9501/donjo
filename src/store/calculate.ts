@@ -16,6 +16,7 @@ type StoreStates = {
   bottomSheetRef: any;
   step: Steps;
   payer: Member | null;
+  tempCnt: number;
 }
 
 type StoreActions = {
@@ -25,6 +26,7 @@ type StoreActions = {
   setDate: (date: moment.Moment) => void;
   setPayer: (payer: Member) => void;
   addMember: (member: Member) => void;
+  addTempMember: () => void;
   changeMember: (index: number, member: Member) => void;
   removeMember: (member: Member) => void;
   setStep: (step: Steps) => void;
@@ -41,7 +43,10 @@ const initialState: StoreStates = {
   bottomSheetRef: null,
   step: 0,
   payer: null,
+  tempCnt: 0,
 }
+
+let alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 65));
 
 const useCalcStore = create((set, get) => ({
   ...initialState,
@@ -57,6 +62,11 @@ const useCalcStore = create((set, get) => ({
     members.push(member);
     return { members }
   }),
+  addTempMember: () => set((state: StoreStates) => {
+    const members = state.members;
+    members.push({ name: alphabet[state.tempCnt], id: -1 });
+    return { members, tempCnt: state.tempCnt + 1 }
+  }),
   changeMemeber: (index: number, member: Member) => set((state: StoreStates) => {
     const members = state.members;
     members[index] = member;
@@ -64,7 +74,9 @@ const useCalcStore = create((set, get) => ({
   }),
   removeMember: (member: Member) => set((state: StoreStates) => {
     const idx = state.members.findIndex((mem: Member) => JSON.stringify(member) === JSON.stringify(mem)) as number;
-    const members = state.members.splice(idx, 1);
+    const before = state.members.slice(0, idx)
+    const after = state.members.slice(idx + 1)
+    const members = [...before].concat(after);
     return { members }
   }),
 }));

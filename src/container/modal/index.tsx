@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import useModalStore, { ModalStoreTypes } from "../../store/modal";
+import React from "react";
+import { Alert, Modal, StyleSheet, View } from "react-native";
+import useModalStore from "../../store/modal";
+import MemberModal from "./member";
 
 const CustomModal = () => {
   const modal = useModalStore((state: any) => state);
+  const modalCallback = (response: any) => modal?.data?.callback?.(response) || null;
 
   return (
     <View style={styles.centeredView}>
@@ -16,18 +18,11 @@ const CustomModal = () => {
           modal.closeModal();
         }}
       > 
-        {modal.data?.type === "alert"
-          && <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => modal.closeModal()}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
+        {modal.data?.type === "member"
+          && <MemberModal
+            onClose={modal.closeModal}
+            data={modal.data?.data}
+            callback={modalCallback} />
         }
       </Modal>
     </View>
@@ -46,41 +41,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.7)",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
 });
 
 export default CustomModal;

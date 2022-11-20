@@ -1,23 +1,8 @@
 import React from "react";
-import { SafeAreaView, ScrollView, FlatList, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Cross } from "./Icons";
 
-const DATA = [
-  {
-    name: 'First Item',
-    description: "은행 | 1"
-  },
-  {
-    name: 'Second Item',
-    description: "은행 | 2"
-  },
-  {
-    name: 'Third Item',
-    description: null
-  },
-];
-
-const Item = (Props) => {
+const Item = (Props: any) => {
   const { name, description, onPress, onRemove } = Props;
   return <View style={styles.itemContainer}>
     <TouchableOpacity style={styles.itemText} onPress={onPress}>
@@ -37,8 +22,8 @@ const List = (Props: { data: any[], onRemoveItem?: any, onPressItem: any }) => {
       key={key}
       name={item.name}
       description={item.description}
-      onPress={() => Props.onPressItem(item)}
-      onRemove={typeof Props.onRemoveItem !== "undefined" ? () => Props.onRemoveItem?.(key, item) : undefined}
+      onPress={() => Props.onPressItem(item, key)}
+      onRemove={typeof Props.onRemoveItem !== "undefined" ? () => Props.onRemoveItem?.(item) : undefined}
     />)}
   </View>
 }

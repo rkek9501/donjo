@@ -6,8 +6,7 @@ import Button from "Component/Button";
 
 import useStore from "Store/calculate";
 
-import { styles } from ".";
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
+import { TitleAnimationView, useStepWrapperStyle, ValueView, styles } from "./commons";
 
 const Step4 = () => {
   const calcState = useStore((state: any) => state);

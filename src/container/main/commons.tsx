@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedStyle, withTiming
 } from "react-native-reanimated";
-import { ScreenHeight } from '../../styles';
+import { cardBgColors, CardHieght, CardWidth, ScreenHeight, ScreenWidth } from '../../styles';
 import { Dot } from '../../styles/icon';
 
-export const ValueView = (Props: { value: string; unit: string; }) => {
+export const ValueView = (Props: { value: string; unit?: string; }) => {
   return <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
     <Text style={{fontSize: 16,marginRight:4}}>{Props.value}</Text>
     <Text style={{fontSize: 12}}>{Props.unit}</Text>
@@ -72,3 +72,54 @@ export const useStepWrapperStyle = (thisStep: number, sharedStep: any) => {
     };
   }, [thisStep, sharedStep]);
 }
+
+export const styles = StyleSheet.create({
+  mainContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    zIndex: 2,
+    width: ScreenWidth,
+  },
+  pageMain: {
+    backgroundColor: cardBgColors[0],
+    justifyContent: "center",
+    alignItems: "center",
+    width: CardWidth,
+    paddingHorizontal: 12,
+  },
+  next: {
+    width: 48,
+    height: 29,
+  },
+  intro: {
+    display: "flex",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+  },
+  introCenter: {
+    height: CardHieght,
+    justifyContent: "space-around",
+  },
+  newTitle: {
+    marginTop: 24,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#281B14",
+  },
+  stepWrapper: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    backgroundColor: "white",
+  },
+  stepContainer: {
+    width: "100%",
+    height: "100%",
+  }
+});

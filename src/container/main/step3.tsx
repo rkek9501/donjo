@@ -8,8 +8,7 @@ import Dropdown from "Component/Dropdown";
 
 import useStore from "Store/calculate";
 
-import { styles } from ".";
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
+import { TitleAnimationView, useStepWrapperStyle, ValueView, styles } from "./commons";
 
 const Step3 = () => {
   const calcState = useStore((state: any) => state);
@@ -32,7 +31,7 @@ const Step3 = () => {
         index={3}
         isCurrStep={step === 3}
         title="누가 결제했나요?"
-        preview={<ValueView value={"0"} unit="명" />}
+        preview={<ValueView value={calcState.payer?.name}/>}
       />
       {step === 3 && <>
         <Text>결제자 : {calcState.payer?.name || "없음"}</Text>

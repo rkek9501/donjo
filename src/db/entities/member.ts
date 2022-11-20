@@ -11,10 +11,10 @@ import {
 @Entity("Member")
 export class Member {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
   
   @Column({ unique: true })
-  name: string;
+  name!: string;
 
   @Column({ nullable: true })
   bank?: string;

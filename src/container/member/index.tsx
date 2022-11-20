@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     width: ScreenWidth,
     height: ScreenHeight,
-    backgroundColor: "light",
+    // backgroundColor: "light",
   },
 });
 

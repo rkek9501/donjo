@@ -9,8 +9,7 @@ import SlideRuler from "Component/SlideRuler";
 import { parsePrice } from "Util/parser";
 import useStore, { StoreTypes } from "Store/calculate";
 
-import { styles } from ".";
-import { TitleAnimationView, useStepWrapperStyle, ValueView } from "./commons";
+import { TitleAnimationView, useStepWrapperStyle, ValueView, styles } from "./commons";
 
 const Step1 = () => {
   const calcState = useStore((state: any) => state);

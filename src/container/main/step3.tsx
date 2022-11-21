@@ -43,15 +43,16 @@ const Step3 = () => {
         <Button round title="다음3"
           style={{ width: ScreenWidth - 48, marginBottom: 30 }}
           onPress={() => {
-            if (calcState.payer) {
-              setStep(4);
-            } else {
-              Alert.alert(
-                "결제자 선택",
-                "결제자가 선택되지 않았습니다. 결제자를 선택해주세요.",
-                [{ text: "OK", onPress: () => {} }]
-              );
-            }
+            setStep(4);
+            // if (calcState.payer) {
+            //   setStep(4);
+            // } else {
+            //   Alert.alert(
+            //     "결제자 선택",
+            //     "결제자가 선택되지 않았습니다. 결제자를 선택해주세요.",
+            //     [{ text: "OK", onPress: () => {} }]
+            //   );
+            // }
           }} />
       </>}
     </>}

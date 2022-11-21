@@ -71,14 +71,15 @@ const Step2 = () => {
         <Button round title="다음2"
           style={{ width: ScreenWidth - 48, marginBottom: 30 }}
           onPress={() => {
-            if (list.length > 0) setStep(3);
-            else {
-              Alert.alert("참여자 추가",
-              "참여자가 추가되지 않았습니다. 불러오기 혹은 추가 버튼을 통해 참여자를 추가해주세요.",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") }
-              ])
-            }
+            setStep(3);
+            // if (list.length > 0) setStep(3);
+            // else {
+            //   Alert.alert("참여자 추가",
+            //   "참여자가 추가되지 않았습니다. 불러오기 혹은 추가 버튼을 통해 참여자를 추가해주세요.",
+            //   [
+            //     { text: "OK", onPress: () => console.log("OK Pressed") }
+            //   ])
+            // }
           }} />
       </View>}
     </>}

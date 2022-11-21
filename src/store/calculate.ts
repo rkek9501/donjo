@@ -41,7 +41,7 @@ const initialState: StoreStates = {
   date: moment(),
   members: [],
   bottomSheetRef: null,
-  step: 0,
+  step: 1,
   payer: null,
   tempCnt: 0,
 }

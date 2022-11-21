@@ -10,10 +10,12 @@ export const navbarHeight = ScreenHeight - WindowHeight + StatusBarHeight;
 
 
 export const CardDistance = 25;
-export const CardHieght = 166;
+export const CardHieght = 128;
 export const CardWidth = ScreenWidth - (CardDistance * 2);
 export const cardBgColors = ["#FEBB39", "#F8503E", "#3C7873"];
 export const HighlightColor = "#F8503E";
 
 export const ContainerHeight = ScreenHeight - CardHieght;
 export const ActiveContainerHeight = ContainerHeight + 20;
+
+export const StepComponentHeight = ScreenHeight - CardHieght - StatusBarHeight;

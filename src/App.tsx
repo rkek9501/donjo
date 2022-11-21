@@ -35,7 +35,7 @@ const App = () => {
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <ContainerWrapper />
-      {/* <CustomModal/> */}
+      <CustomModal/>
       {/* <BottomSheet /> */}
     </SafeAreaView>
   );

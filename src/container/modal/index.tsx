@@ -6,7 +6,7 @@ import MemberModal from "./member";
 const CustomModal = () => {
   const modal = useModalStore((state: any) => state);
   const modalCallback = (response: any) => modal?.data?.callback?.(response) || null;
-
+  if (!modal.isOpen) return null;
   return (
     <View style={styles.centeredView}>
       <Modal

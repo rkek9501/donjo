@@ -53,7 +53,7 @@ export const useStepWrapperStyle = (thisStep: number, sharedStep: any) => {
       case 2: thisStepHeigt = ScreenHeight - 190; break;
       case 3: thisStepHeigt = ScreenHeight - 240; break;
       case 4: thisStepHeigt = ScreenHeight - 290; break;
-      default: thisStepHeigt = 0; break;
+      default: thisStepHeigt = ScreenHeight; break;
     }
     // let bg = "white";
     // switch(thisStep) {
@@ -75,17 +75,19 @@ export const useStepWrapperStyle = (thisStep: number, sharedStep: any) => {
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    position: "absolute",
+    position: "relative",
     top: 0,
     bottom: 0,
     zIndex: 2,
     width: ScreenWidth,
+    backgroundColor: cardBgColors[0],
+    height: ScreenHeight
   },
   pageMain: {
-    backgroundColor: cardBgColors[0],
+    position: "absolute",
+    width: ScreenWidth,
     justifyContent: "center",
     alignItems: "center",
-    width: CardWidth,
     paddingHorizontal: 12,
   },
   next: {

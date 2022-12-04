@@ -16,17 +16,25 @@ const TabRadius = 14;
 const HomeScreen = () => {
   const navigation = React.useContext(NavigationContext);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[0] }}>
       <Text>Home!</Text>
-      <Button round title="Start!" style={{ width: "80%" }} onPress={() => navigation?.navigate("Main")}/>
+      <Button round title="다음" style={{ width: "80%" }} onPress={() => navigation?.navigate("Main")}/>
     </View>
   );
 }
 
-const SettingsScreen = () => {
+const MembersScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[1] }}>
+      <Text>Members!</Text>
+    </View>
+  );
+};
+
+const HistoryScreen = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[2] }}>
+      <Text>History!</Text>
     </View>
   );
 };
@@ -134,8 +142,8 @@ const TabNavigationWrapper = () => {
   return (
     <Tab.Navigator screenOptions={{ swipeEnabled: false }} tabBar={(props) => <TabBar {...props} />} >
       <Tab.Screen name="새 모임 추가" component={HomeScreen} />
-      <Tab.Screen name="맴버 저장" component={SettingsScreen} />
-      <Tab.Screen name="이전 기록" component={SettingsScreen} />
+      <Tab.Screen name="맴버 저장" component={MembersScreen} />
+      <Tab.Screen name="이전 기록" component={HistoryScreen} />
     </Tab.Navigator>
   );
 };

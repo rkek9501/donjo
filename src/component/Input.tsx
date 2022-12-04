@@ -16,7 +16,7 @@ type InputProps = {
   label?: string;
   required?: boolean;
   selectionColor?: string;
-  onFocus?: () => void;
+  onFocus?: (isFoucsed: boolean) => void;
 };
 
 const Input = (Props: InputProps) => {
@@ -32,7 +32,8 @@ const Input = (Props: InputProps) => {
       placeholder={Props.placeholder || ""}
       onChangeText={Props.onChangeText}
       selectionColor={Props.selectionColor}
-      onFocus={Props.onFocus}
+      onFocus={() => Props.onFocus?.(true)}
+      onBlur={() => Props.onFocus?.(false)}
     />
   </View>
 }

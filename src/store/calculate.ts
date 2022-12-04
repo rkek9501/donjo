@@ -36,7 +36,7 @@ export type StoreTypes = StoreStates & StoreActions;
 
 const initialState: StoreStates = {
   name: "",
-  price: 0,
+  price: 10000,
   place: "",
   date: moment(),
   members: [],

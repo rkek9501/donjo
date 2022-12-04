@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Dimensions, View, Text, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, Dimensions, View, Text, KeyboardAvoidingView, Keyboard } from "react-native";
 import times from "lodash.times";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import Svg, { Path } from "react-native-svg";
@@ -12,28 +12,22 @@ import { HighlightColor } from "../styles";
 
 const GAUGE_WIDTH = Math.floor(Dimensions.get("window").width);
 const INTERVAL_WIDTH = 16;
-
-const calcScale = (v, inputMin, inputMax, outputMin, outputMax, unitSize) => {
-  return Math.round(((v - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin) * unitSize / 10;
-};
-
 const initialMin = 10;
 const initialMax = 100;
 
-const SlideRuler = props => {
+const calcScale = (v: number, inputMin: number, inputMax: number, outputMin: number, outputMax: number, unitSize: number) => {
+  return Math.round(((v - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin) * unitSize;
+};
+
+const SlideRuler = (props: any) => {
   const [valueScales, setValueScales] = useState({
-    min: 10, max: 100, unitSize: 10
+    min: 100, max: 1000, unitSize: 100
   })
   const [scrollMax, setScrollMax] = useState((initialMax - initialMin) * INTERVAL_WIDTH);
-  // const [min, setMin] = useState(10);
-  // const [max, setMax] = useState(100);
-  // const [unitSize, setUnitSize] = useState(1000);
 
   const scrollRef = useRef(null);
   const scrollMin = 0;
-  // const scrollMax = (max - min) * INTERVAL_WIDTH;
 
-  // const scale = useSharedValue(1);
   const _scaleValue = useCallback((v = 0) => {
     return calcScale(v, valueScales.min, valueScales.max, scrollMin, scrollMax, valueScales.unitSize);
   }, [valueScales, scrollMax]);
@@ -51,20 +45,18 @@ const SlideRuler = props => {
     return calcScale(x, scrollMin, scrollMax, _min, _max, valueScales.unitSize);
   }, [valueScales, scrollMax]);
 
-  const _handleScroll = event => {
+  const _handleScroll = (event: any) => {
 
     let offset = event.nativeEvent.contentOffset.x;
-    // console.log({ offset });
 
     let val = _scaleScroll(offset);
-    // console.log({ val });
     if (val !== value) {
       setValue(val);
       props.onChange(val);
     }
   };
 
-  const _getIntervalSize = val => {
+  const _getIntervalSize: any = (val: number) => {
     let { largeInterval, mediumInterval } = props;
     if (val % largeInterval === 0) {
       return "large";
@@ -78,10 +70,10 @@ const SlideRuler = props => {
   const _renderIntervals = useCallback(() => {
     const { min, max, unitSize } = valueScales;
     let range = max - min + 1;
-    let values = times(range, i => i + min);
+    let values = times(range, (i: number) => i + min);
 
-    return values.map((val, i) => {
-      let intervalSize = _getIntervalSize(val);
+    return values.map((val: number, i: number) => {
+      let intervalSize: "small" | "medium" | "large" = _getIntervalSize(val);
 
       return (
         <View key={`val-${i}`} style={[styles.intervalContainer, { zIndex: intervalSize === "large" ? 2 : 0}]}>
@@ -116,58 +108,63 @@ const SlideRuler = props => {
       console.log("onFinalize", JSON.stringify(e, null, 2));
     });
 
-  return (
-    <GestureHandlerRootView>
-      <View style={[styles.container, props.containerStyle]}>
-        <View style={[styles.inputContainer]}>
-          <Input
-            type="number-pad"
-            value={parsePrice(value)}
-            style={[styles.customInput]}
-            onChangeText={setValue}
-            selectionColor={HighlightColor}
-          />
+  const onScaleUp = useCallback(() => {
+    const nextUnit = valueScales.unitSize * 10;
+    if (nextUnit <= 1000000) {
+      setValueScales((prev) => ({ ...prev, unitSize: nextUnit }));
+      setValue(value * 10)
+      props.onChange?.(value * 10);
+    };
+  },[value, valueScales, setValueScales, setValue]);
+
+  const onScaleDown = useCallback(() => {
+    const nextUnit = valueScales.unitSize / 10;
+    if (nextUnit >= 10) {
+      setValueScales((prev) => ({ ...prev, unitSize: nextUnit }));
+      setValue(value / 10)
+      props.onChange?.(value / 10);
+    };
+  }, [value, valueScales, setValueScales, setValue]);
+
+  return (<View style={[styles.container, props.containerStyle]}>
+    <View style={[styles.inputContainer]}>
+      <Input
+        type="number-pad"
+        value={parsePrice(value)}
+        style={[styles.customInput]}
+        onChangeText={setValue}
+        selectionColor={HighlightColor}
+        onFocus={props.setInputFocused}
+      />
+    </View>
+    <Animated.ScrollView
+      ref={scrollRef}
+      horizontal={true}
+      decelerationRate={0}
+      snapToInterval={INTERVAL_WIDTH}
+      snapToAlignment="start"
+      showsHorizontalScrollIndicator={false}
+      onScroll={_handleScroll}
+      // onMomentumScrollEnd={_handleScrollEnd}
+      // onContentSizeChange={_resolveScrollQueue}
+      scrollEventThrottle={100}
+      pinchGestureEnabled={true}
+      style={{marginTop: 50}}
+      contentOffset={{ x: contentOffset, y: 0 }}>
+      <GestureDetector gesture={pinchGesture}>
+        <View style={[styles.intervals]}>
+          {_renderIntervals()}
         </View>
-        <Animated.ScrollView
-          ref={scrollRef}
-          horizontal={true}
-          decelerationRate={0}
-          snapToInterval={INTERVAL_WIDTH}
-          snapToAlignment="start"
-          showsHorizontalScrollIndicator={false}
-          onScroll={_handleScroll}
-          // onMomentumScrollEnd={_handleScrollEnd}
-          // onContentSizeChange={_resolveScrollQueue}
-          scrollEventThrottle={100}
-          pinchGestureEnabled={true}
-          style={{marginTop: 50}}
-          contentOffset={{ x: contentOffset, y: 0 }}>
-          <GestureDetector gesture={pinchGesture}>
-            <View style={[styles.intervals]}>
-              {_renderIntervals()}
-            </View>
-          </GestureDetector>
-        </Animated.ScrollView>
-        <View style={[styles.centerline]}>
-          <Svg style={[styles.centerlineSvg]} width="14" height="8" viewBox="0 0 14 8" fill="none">
-            <Path d="M7 8L0 0L14 0L7 8Z" fill={HighlightColor} />
-          </Svg>
-        </View>
-        <Button style={{height: 30, width: 20, right: 0, position: "absolute"}} title="+" onPress={() => {
-          setValueScales((prev) => ({
-            ...prev,
-            unitSize: prev.unitSize * 10
-          }));
-        }}/>
-        <Button style={{height: 30, width: 20, left: 0, position: "absolute"}} title="-" onPress={() => {
-          setValueScales((prev) => ({
-            ...prev,
-            unitSize: prev.unitSize / 10
-          }));
-        }}/>
-      </View>
-    </GestureHandlerRootView>
-  );
+      </GestureDetector>
+    </Animated.ScrollView>
+    <View style={[styles.centerline]}>
+      <Svg style={[styles.centerlineSvg]} width="14" height="8" viewBox="0 0 14 8" fill="none">
+        <Path d="M7 8L0 0L14 0L7 8Z" fill={HighlightColor} />
+      </Svg>
+    </View>
+    <Button style={{height: 30, width: 20, right: 0, position: "absolute"}} title="+" onPress={onScaleUp}/>
+    <Button style={{height: 30, width: 20, left: 0, position: "absolute"}} title="-" onPress={onScaleDown}/>
+  </View>);
 };
 
 SlideRuler.propTypes = {
@@ -178,6 +175,7 @@ SlideRuler.propTypes = {
   mediumInterval: PropTypes.number,
   value: PropTypes.number,
   onChange: PropTypes.func,
+  setInputFocused: PropTypes.func,
   styles: PropTypes.object,
 };
 

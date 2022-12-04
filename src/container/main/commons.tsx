@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedStyle, withTiming
 } from "react-native-reanimated";
-import { cardBgColors, CardHieght, CardWidth, ScreenHeight, ScreenWidth } from '../../styles';
+import { cardBgColors, CardHieght, ScreenHeight, ScreenWidth } from '../../styles';
 import { Dot } from '../../styles/icon';
 
 export const ValueView = (Props: { value: string; unit?: string; }) => {
@@ -122,6 +122,6 @@ export const styles = StyleSheet.create({
   },
   stepContainer: {
     width: "100%",
-    height: "100%",
+    minHeight: 100,
   }
 });

@@ -31,10 +31,29 @@ const MembersScreen = () => {
   );
 };
 
+type MemberCardProps = {
+  name: string;
+  groupName?: string;
+  bank?: string;
+  account?: string;
+};
+const MemberCard = (props: MemberCardProps) => {
+  return <View style={{ backgroundColor: "gray", flex: 1 }}>
+    <Text style={{ color: "white" }}>{props.name}</Text>
+    {props.groupName && <Text>{props.groupName}</Text>}
+    {props.bank && <Text>{props.bank}</Text>}
+    {props.account && <Text>{props.account}</Text>}
+  </View>
+};
+
 const HistoryScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[2] }}>
       <Text>History!</Text>
+      <View style={{ flexDirection: "row", width: "100%" }}>
+        <MemberCard name="권오수권오수권오수권오수권오수권오수권오수권오수" groupName="대학" />
+        <MemberCard name="권오수" groupName="대학" />
+      </View>
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import { ManyToMany } from 'typeorm';
 import {
   Entity,
+  BaseEntity,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
@@ -11,24 +12,24 @@ import { Member } from './member';
 
 @Entity("Dutch")
 export class Dutch {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("increment")
+  id!: number;
 
   @Column({ nullable: false, default: false })
-  isPayer: boolean;
+  isPayer!: boolean;
 
   // isPayer === true 일 때 (결재자)
   @Column({ nullable: false })
-  payPrice: number;
+  payPrice!: number;
 
   // 지불할 금액
   @Column({ nullable: false, default: 0 })
-  ownPrice: number;
+  ownPrice!: number;
 
   @Column({ nullable: false })
-  payId: number;
+  payId!: number;
 
-  @ManyToMany((type: any) => Member, (member) => member.id)
+  @ManyToMany(() => Member, (member) => member.id)
   @JoinTable()
-  member: Member;
+  member?: Member;
 }

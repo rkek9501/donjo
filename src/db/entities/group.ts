@@ -2,21 +2,24 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
   ManyToMany,
-  JoinTable
+  JoinColumn,
+  ManyToOne
 } from 'typeorm/browser';
 import { Member } from './member';
 
 @Entity("Group")
 export class Group {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("increment")
+  id?: number;
 
   @Column()
-  name: string;
+  name!: string;
+  
+  @Column({ nullable: true })
+  lastUsedDate?: Date;
 
-  @ManyToMany((type: any) => Member, (member) => member.id)
-  @JoinTable()
+  @ManyToOne(() => Member, (member) => member.groups)
+  @JoinColumn()
   members?: Member[];
 }

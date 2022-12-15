@@ -1,5 +1,5 @@
-import { getRepository, getConnection } from 'typeorm/browser';
-import { Group, Member, Pay, Bill, Dutch } from '../entities';
+import { getRepository } from 'typeorm/browser';
+import { Group } from '../entities';
 
 export default class GroupResolver {
   private groupRepository = getRepository(Group);
@@ -8,18 +8,14 @@ export default class GroupResolver {
   }
   async getGroups() {
     return await this.groupRepository.find({
-      relations: [
-        "members"
-      ]
+      relations: ["members"]
     });
   }
 
   async findGroup(name: string) {
     return await this.groupRepository.findOne({
       where: { name },
-      relations: [
-        "members"
-      ]
+      relations: ["members"]
     });
   }
 
@@ -46,7 +42,7 @@ export default class GroupResolver {
     return await this.groupRepository.save(updateGroup)
   }
 
-  async deleteGroup(id) {
+  async deleteGroup(id: number) {
     const deleteGroup = await this.groupRepository.findOne({ where: { id }});
     if (deleteGroup) {
       await this.groupRepository.remove(deleteGroup);

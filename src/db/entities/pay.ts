@@ -1,6 +1,7 @@
 import { ManyToMany, ManyToOne } from 'typeorm';
 import {
   Entity,
+  BaseEntity,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
@@ -13,23 +14,23 @@ import { Dutch } from './dutch';
 
 @Entity("Pay")
 export class Pay {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("increment")
+  id!: number;
 
   @Column()
-  place: string;
+  place?: string;
 
   @Column()
-  date: Date;
+  date!: Date;
 
   @Column()
-  price: number;
+  price!: number;
   
-  @ManyToOne((type: any) => Group, (group) => group.id)
+  @ManyToOne(() => Group, (group) => group.id)
   @JoinTable()
-  group: Group;
+  group?: Group;
 
-  @OneToMany((type: any) => Dutch, (dutch) => dutch.id)
+  @OneToMany(() => Dutch, (dutch) => dutch.id)
   @JoinTable()
   dutchPays?: Dutch[];
 }

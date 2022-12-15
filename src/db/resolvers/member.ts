@@ -1,5 +1,5 @@
-import { getRepository } from 'typeorm/browser';
-import { Group, Member, Pay, Bill, Dutch } from '../entities';
+import { getRepository } from 'typeorm';
+import { Member } from '../entities';
 
 export default class MemberResolver {
   private memberRepository = getRepository(Member);
@@ -7,7 +7,9 @@ export default class MemberResolver {
     
   }
   async getMembers() {
-    return await this.memberRepository.find();
+    return await this.memberRepository.find({
+      relations: ["groups"]
+    });
   }
 
   async findMember(name: string) {
@@ -38,7 +40,7 @@ export default class MemberResolver {
     return await this.memberRepository.save(updateMember)
   }
 
-  async deleteMember(id) {
+  async deleteMember(id: number) {
     const deleteMember = await this.memberRepository.findOne({ where: { id }});
     if (deleteMember) {
       await this.memberRepository.remove(deleteMember);

@@ -2,27 +2,31 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  // OneToMany,
-  // ManyToMany,
-  // JoinTable,
+  ManyToMany,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm/browser';
-// import { Group } from './group';
+import { Group } from './group';
 
 @Entity("Member")
 export class Member {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("increment")
+  id?: number;
   
   @Column({ unique: true })
   name!: string;
 
   @Column({ nullable: true })
-  bank?: string;
+  bank?: string | null;
 
   @Column({ nullable: true })
-  account?: string;
+  account?: string | null;
 
-  // @ManyToMany((type: any) => Group, (group) => group.id)
-  // @JoinTable()
-  // groups: Group[];
+  @Column({ nullable: true })
+  lastUsedDate?: Date;
+
+  @OneToMany(() => Group, (group) => group.members)
+  @JoinColumn()
+  groups?: Group[];
 }

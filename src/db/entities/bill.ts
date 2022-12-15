@@ -1,5 +1,6 @@
 import {
   Entity,
+  BaseEntity,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
@@ -12,26 +13,26 @@ import { Dutch } from './dutch';
 
 @Entity("Bill")
 export class Bill {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("increment")
+  id!: number;
 
   @Column()
-  date: Date;
+  date!: Date;
 
   @Column()
-  total: number;
+  total!: number;
 
   @Column({ default: false })
-  isSaved: boolean;
+  isSaved?: boolean;
 
   @Column({ default: false })
-  isComplete: boolean;
+  isComplete?: boolean;
 
-  @OneToOne((type: any) => Group, (group) => group.id)
+  @OneToMany(() => Group, (group) => group.id)
   @JoinTable()
-  group: Group;
+  group?: Group;
 
-  @OneToMany((type: any) => Pay, (pay) => pay.id)
+  @OneToMany(() => Pay, (pay) => pay.id)
   @JoinTable()
-  payList: Pay[];
+  payList?: Pay[];
 }

@@ -1,70 +1,75 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
-  View, TextInput, Text,
   StyleSheet, StyleProp, ViewStyle,
-  KeyboardTypeOptions
+  KeyboardTypeOptions, Keyboard
 } from "react-native";
 
+import { TextInput } from "@react-native-material/core";
+import { CircleCross, Error } from "Component/Icons";
+
 type InputProps = {
-  value: number | string;
-  onChangeText: (e: string | number) => void;
   style?: StyleProp<ViewStyle>;
   containerStyle?: StyleProp<ViewStyle>;
-  type?: KeyboardTypeOptions;
   placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
   label?: string;
-  required?: boolean;
-  selectionColor?: string;
+  value: number | string;
+  onChangeText: (e: any) => void;
   onFocus?: (isFoucsed: boolean) => void;
+  trailingIconType?: "remove" | "warnning";
+  error?: any;
 };
 
 const Input = (Props: InputProps) => {
-  return <View style={[styles.container, Props.containerStyle]}>
-    {Props.label && <Text style={[styles.label]}>
-      {Props.label}
-      {typeof Props.required !== "undefined" && <Text style={styles.required}>*</Text>}
-    </Text>}
-    <TextInput
-      style={[styles.input, Props.style]}
-      keyboardType={Props.type || "default"}
-      value={`${Props.value || ""}`}
-      placeholder={Props.placeholder || ""}
-      onChangeText={Props.onChangeText}
-      selectionColor={Props.selectionColor}
-      onFocus={() => Props.onFocus?.(true)}
-      onBlur={() => Props.onFocus?.(false)}
-    />
-  </View>
-}
+  const { trailingIconType, value, onChangeText, error } = Props;
+  const [innerFocus, setInnerFocus] = useState(false);
+
+  const TrailingIcon = useCallback(() => {
+    if (error) return <Error />
+    else if (innerFocus && trailingIconType && ((typeof value === "string" && value.length > 0) || (typeof value === "number" && value === 0))) {
+      if (trailingIconType === "remove") return <CircleCross onPress={() => onChangeText("")} />;
+      else if (trailingIconType === "warnning") return <CircleCross />;
+    }
+    return null;
+  }, [value, error, innerFocus, trailingIconType]);
+
+  return <TextInput
+    color={error ? "#DC143C" : "#008080"}
+    variant="outlined"
+    keyboardType={Props.keyboardType || "default"}
+    style={[styles.style, Props.style]}
+    inputStyle={styles.inputStyle}
+    inputContainerStyle={[styles.containerStyle, Props.containerStyle]}
+    label={Props.label}
+    placeholder={Props.placeholder || ""}
+    value={`${Props.value || ""}`}
+    onChangeText={onChangeText}
+    trailing={props => <TrailingIcon />}
+    onFocus={() => {
+      Props.onFocus?.(true);
+      setInnerFocus(true);
+    }}
+    onBlur={() => {
+      Keyboard.dismiss();
+      Props.onFocus?.(false);
+      setInnerFocus(false);
+    }}
+  />;
+};
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    // border: "solid 1px #C4C4C4"
-    // paddingHorizontal: 20,
-    // paddingVertical: 4,
+  style: {
+    borderWidth: 0,
+    borderRadius: 0,
+    width:"100%"
   },
-  input: {
-    width: "100%",
-    height: 50,
-    // paddingHorizontal: 24,
-    // marginBottom: 16,
-    borderColor: "#C4C4C4",
-    borderWidth: 1,
+  inputStyle: {
+    padding:0
+  },
+  containerStyle: {
     borderRadius: 4,
-  },
-  label: {
-    fontSize: 14,
-    marginTop: 8,
-    marginBottom: 8,
-    color: "#505050",
-    fontWeight: "bold"
-  },
-  required: {
-    color: "#F8503E",
+    width: "100%",
   }
 });
 export default Input;

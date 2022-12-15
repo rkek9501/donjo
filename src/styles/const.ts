@@ -6,16 +6,14 @@ export const ScreenWidth = Dimensions.get("screen").width;
 export const ScreenHeight = Dimensions.get("screen").height;
 export const StatusBarHeight = StatusBar.currentHeight || 24;
 
-export const navbarHeight = ScreenHeight - WindowHeight + StatusBarHeight;
+export const NavbarHeight = ScreenHeight - WindowHeight + StatusBarHeight;
 
-
-export const CardDistance = 25;
 export const CardHieght = 128;
-export const CardWidth = ScreenWidth - (CardDistance * 2);
 export const cardBgColors = ["#FEBB39", "#F8503E", "#3C7873"];
 export const HighlightColor = "#F8503E";
 
-export const ContainerHeight = ScreenHeight - CardHieght;
-export const ActiveContainerHeight = ContainerHeight + 20;
-
 export const StepComponentHeight = ScreenHeight - CardHieght - StatusBarHeight;
+
+export const TabBarHight = 50;
+export const TabHeaderHeight = 100;
+export const MainHeight = ScreenHeight - (TabBarHight + TabHeaderHeight) + StatusBarHeight;

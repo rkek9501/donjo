@@ -12,20 +12,33 @@ type ButtonProps = {
   disabled?: boolean;
   onPress?: (e: GestureResponderEvent) => void;
   round?: boolean;
+  black?: boolean;
+  white?: boolean;
 };
 
 const Button = (Props: ButtonProps) => {
+  const { title, style: containerStyle , round, disabled, white, black } = Props;
+  if (typeof white !== "undefined" && typeof black !== "undefined") {
+    throw new Error("you cannot use both 'white' and 'black' property on Button Component");
+  }
+  const bgColor = {
+    backgroundColor: white ? "white" : "black",
+  };
+  const fontColor = {
+    color: white ? "black" : "white",
+  };
   return <TouchableOpacity
-    disabled={Props.disabled} 
+    disabled={disabled} 
     style={[
       styles.container,
-      Props.style,
-      !Props.disabled ? styles.enabledContainer : styles.disabledContainer,
-      Props?.round && { borderRadius: 26 },
+      containerStyle,
+      !disabled ? bgColor : styles.disabledContainer,
+      round && { borderRadius: 26 },
+      round && white && { borderWidth: 2, borderColor: "black" }
     ]}
     onPress={Props.onPress}>
-    <Text style={[!Props.disabled ? styles.button : styles.disabledButton]}>
-      {Props.title}
+    <Text style={[!disabled ? styles.button : styles.disabledButton, fontColor]}>
+      {title}
     </Text>
   </TouchableOpacity>
 }

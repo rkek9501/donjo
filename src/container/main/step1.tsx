@@ -9,7 +9,7 @@ import { parsePrice } from "Util/parser";
 import useStore, { StoreTypes } from "Store/calculate";
 
 import { TitleAnimationView, ValueView, styles } from "./commons";
-import Styles, { navbarHeight, StepComponentHeight, WindowWidth } from "../../styles";
+import Styles, { NavbarHeight, StepComponentHeight, WindowWidth } from "../../styles";
 
 const Step1 = () => {
   const calcState = useStore((state: any) => state);
@@ -43,7 +43,7 @@ const Step1 = () => {
     width: isInputFocused ? "100%" : WindowWidth-32,
     bottom: isInputFocused ? 105 : 0,
     marginHorizontal: isInputFocused ? 0 : 16, 
-    marginBottom: isInputFocused ? 0 : navbarHeight,
+    marginBottom: isInputFocused ? 0 : NavbarHeight,
     marginTop: isInputFocused ? 0 : 40,
   }), [isInputFocused]);
 

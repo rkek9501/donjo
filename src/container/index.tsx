@@ -4,7 +4,7 @@ import { NavigationContainer, NavigationContext } from '@react-navigation/native
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { cardBgColors } from "src/styles";
+import { cardBgColors, TabBarHight } from "src/styles";
 import Main from "./main";
 import Member from "./member";
 import Button from "Component/Button";
@@ -183,7 +183,7 @@ export default StackNavigationWrapper;
 const styles = StyleSheet.create({
   tabContainer: {
     flex: 1,
-    height: 50,
+    height: TabBarHight,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",

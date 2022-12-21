@@ -70,3 +70,6 @@ buck-out/
 .bundle
 .env
 .env.*
+
+# assets
+android/app/src/main/assets/fonts/

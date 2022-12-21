@@ -1,4 +1,5 @@
 import { Dimensions, StatusBar } from 'react-native';
+import { SCREEN_HEIGHT} from '@gorhom/bottom-sheet';
 
 export const WindowWidth = Dimensions.get("window").width;
 export const WindowHeight = Dimensions.get("window").height;
@@ -17,3 +18,6 @@ export const StepComponentHeight = ScreenHeight - CardHieght - StatusBarHeight;
 export const TabBarHight = 50;
 export const TabHeaderHeight = 100;
 export const MainHeight = ScreenHeight - (TabBarHight + TabHeaderHeight) + StatusBarHeight;
+
+export const BottomSheetScreenHeight = SCREEN_HEIGHT;
+export const BottomSheetHeight = BottomSheetScreenHeight + StatusBarHeight;

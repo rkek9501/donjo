@@ -62,14 +62,17 @@ const styles = StyleSheet.create({
   style: {
     borderWidth: 0,
     borderRadius: 0,
-    width:"100%"
+    width:"100%",
+    fontFamily: "SCDream4",
   },
   inputStyle: {
-    padding:0
+    padding: 0,
+    fontFamily: "SCDream4",
   },
   containerStyle: {
     borderRadius: 4,
     width: "100%",
+    fontFamily: "SCDream4",
   }
 });
 export default Input;

@@ -1,27 +1,48 @@
-import { createConnection, getRepository, Connection } from 'typeorm/browser';
+import { createConnection, DataSource } from 'typeorm';
 import { Group } from './group';
 import { Member } from './member';
 import { Pay } from './pay';
 import { Bill } from './bill';
 import { Dutch } from './dutch';
 
-const connectDB = async () => {
-  return await createConnection({
-    type: 'react-native',
-    database: 'donjo',
-    location: 'default',
-    logging: ['error', 'query', 'schema'],
-    synchronize: true,
-    entities: [Member, Group, Pay, Bill, Dutch],
-  });
+class Source {
+  private source;
+  constructor() {
+    this.source = new DataSource({
+      type: 'react-native',
+      database: 'donjo',
+      location: 'default',
+      logging: ['error', 'query', 'schema'],
+      synchronize: true,
+      // dropSchema: true,
+      entities: [Member, Group, Pay, Bill, Dutch],
+    });
+  };
+  async init() {
+    await this.source.initialize()
+      .then(() => {
+          console.log("Data Source has been initialized!")
+      })
+      .catch((err) => {
+          console.error("Error during Data Source initialization", err)
+      });
+
+    return this.source;
+  }
+  getAppDataSource() {
+    return this.source;
+  }
 }
+
+const AppDataSource = new Source();
+AppDataSource.init();
 
 export {
   Group,
   Member,
   Pay,
   Bill,
-  Dutch
+  Dutch,
 }
 
-export default connectDB;
+export default AppDataSource.getAppDataSource();

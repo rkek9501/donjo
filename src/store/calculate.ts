@@ -3,6 +3,7 @@ import moment from "moment";
 moment.locale("ko");
 
 import { Member } from "../db/entities";
+import { getRandomAnimal } from "DB/data/animals";
 
 export const DATE_FORMAT = "YYYY.MM.DD"
 
@@ -64,7 +65,7 @@ const useCalcStore = create((set, get) => ({
   }),
   addTempMember: () => set((state: StoreStates) => {
     const members = state.members;
-    members.push({ name: alphabet[state.tempCnt], id: -1 });
+    members.push({ name: getRandomAnimal(), id: -1 });
     return { members, tempCnt: state.tempCnt + 1 }
   }),
   changeMemeber: (index: number, member: Member) => set((state: StoreStates) => {

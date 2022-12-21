@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { BottomSheetCallback } from "Store/bottomSheet";
-import Button from "../Button";
-import SlideRuler from "../SlideRuler";
+import Button from "Component/Button";
+import SlideRuler from "Component/SlideRuler";
 
 const Ruler = (Props: { callback?: BottomSheetCallback; }) => {
   const [value, setValue] = useState(1000);

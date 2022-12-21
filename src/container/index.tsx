@@ -23,14 +23,6 @@ const HomeScreen = () => {
   );
 }
 
-const MembersScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[1] }}>
-      <Text>Members!</Text>
-    </View>
-  );
-};
-
 type MemberCardProps = {
   name: string;
   groupName?: string;
@@ -142,7 +134,7 @@ const TabBar = ({ state, descriptors, navigation, position }: any) => {
                 borderBottomRightRadius: TabRadius,
                 borderBottomLeftRadius: TabRadius,
               }]}>
-                <Animated.Text style={{ color: ActiveTextColor() }}>
+                <Animated.Text style={{ color: ActiveTextColor(), fontFamily:"SCDream4", fontSize: 14 }}>
                   {label}
                 </Animated.Text>
                 <Animated.View style={[styles.tabDot, { backgroundColor: ActiveDotColor() }]} />
@@ -159,9 +151,9 @@ const TabBar = ({ state, descriptors, navigation, position }: any) => {
 
 const TabNavigationWrapper = () => {
   return (
-    <Tab.Navigator screenOptions={{ swipeEnabled: false }} tabBar={(props) => <TabBar {...props} />} >
+    <Tab.Navigator screenOptions={{ swipeEnabled: false }} initialRouteName="맴버 저장" tabBar={(props) => <TabBar {...props} />} >
       <Tab.Screen name="새 모임 추가" component={HomeScreen} />
-      <Tab.Screen name="맴버 저장" component={MembersScreen} />
+      <Tab.Screen name="맴버 저장" component={Member} />
       <Tab.Screen name="이전 기록" component={HistoryScreen} />
     </Tab.Navigator>
   );

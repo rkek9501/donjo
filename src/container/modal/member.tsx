@@ -46,13 +46,13 @@ const MemberModal = (Props: {
           selected={bank}
           onChangeSelected={setBank}
           values={Banks} />
-          <Input
-            style={{borderWidth: 0, borderRadius: 0}}
-            containerStyle={{width:"65%", marginBottom: 8, marginLeft:4, backgroundColor: "#EDEDED"}}
-            placeholder="계좌번호"
-            type="numeric"
-            value={account}
-            onChangeText={setAccount} />
+        <Input
+          style={{borderWidth: 0, borderRadius: 0}}
+          containerStyle={{width:"65%", marginBottom: 8, marginLeft:4, backgroundColor: "#EDEDED"}}
+          placeholder="계좌번호"
+          keyboardType="numeric"
+          value={account}
+          onChangeText={setAccount} />
       </View>
 
       <Text style={styles.saveWraning}>{Props.data?.id === -1 && "수정된 결과는 바로 저장됩니다."}</Text>

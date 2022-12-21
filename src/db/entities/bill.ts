@@ -6,7 +6,7 @@ import {
   OneToMany,
   OneToOne,
   JoinTable
-} from 'typeorm/browser';
+} from 'typeorm';
 import { Pay } from './pay';
 import { Group } from './group';
 import { Dutch } from './dutch';

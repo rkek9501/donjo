@@ -17,9 +17,11 @@ export type MemberInput = {
   name: string;
   bank?: string;
   account?: string;
+  groups?: Group[];
 }
 export type GroupInput = {
   name: string;
+  members?: Member[];
 }
 
 export default {};

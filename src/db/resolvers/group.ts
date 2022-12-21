@@ -1,11 +1,17 @@
-import { getRepository } from 'typeorm/browser';
+import type { Repository } from 'typeorm';
+import { GroupInput } from 'DB/types/inputs';
 import { Group } from '../entities';
-
+import AppDataSource from "../entities";
 export default class GroupResolver {
-  private groupRepository = getRepository(Group);
+  private groupRepository: Repository<Group>;
   constructor() {
-    
+    this.groupRepository = AppDataSource.getRepository(Group);
   }
+
+  init() {
+    this.groupRepository = AppDataSource.getRepository(Group);
+  }
+
   async getGroups() {
     return await this.groupRepository.find({
       relations: ["members"]
@@ -19,7 +25,7 @@ export default class GroupResolver {
     });
   }
 
-  async createGroup(group: Group) {
+  async createGroup(group: GroupInput) {
     const findGroup = await this.groupRepository.findOne({ where: { name: group.name }});
     if (findGroup) {
       throw new Error("이미 존재하는 그룹 입니다.");
@@ -30,7 +36,7 @@ export default class GroupResolver {
     return createdGroup;
   }
 
-  async updateGroup(id: number, group: Group) {
+  async updateGroup(id: number, group: GroupInput) {
     const updateGroup = await this.groupRepository.findOne({ where: { id }});
     if (!updateGroup) {
       throw new Error("존재하지 않는 그룹 입니다.");

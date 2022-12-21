@@ -7,7 +7,7 @@ import {
   OneToMany,
   OneToOne,
   JoinTable
-} from 'typeorm/browser';
+} from 'typeorm';
 import { Group } from './group';
 import { Member } from './member';
 import { Dutch } from './dutch';

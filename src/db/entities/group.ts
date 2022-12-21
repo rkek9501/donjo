@@ -3,15 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
-  JoinColumn,
-  ManyToOne
-} from 'typeorm/browser';
+} from 'typeorm';
 import { Member } from './member';
 
 @Entity("Group")
 export class Group {
   @PrimaryGeneratedColumn("increment")
-  id?: number;
+  readonly id?: number;
 
   @Column()
   name!: string;
@@ -19,7 +17,11 @@ export class Group {
   @Column({ nullable: true })
   lastUsedDate?: Date;
 
-  @ManyToOne(() => Member, (member) => member.groups)
-  @JoinColumn()
+  @ManyToMany(() => Member, (member) => member.groups, {
+    // cascade: ["insert", "update"],
+    onUpdate: "RESTRICT",
+    onDelete: "SET NULL",
+    nullable: true,
+  })
   members?: Member[];
 }

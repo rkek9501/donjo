@@ -7,7 +7,7 @@ import {
   OneToMany,
   OneToOne,
   JoinTable
-} from 'typeorm/browser';
+} from 'typeorm';
 import { Member } from './member';
 
 @Entity("Dutch")

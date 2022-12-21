@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, GestureResponderEvent, ScrollView } from "react-native";
 import { Down } from "./Icons";
-import Styles from "../styles";
+import Styles, { ScreenHeight } from "../styles";
 
 const DropdownHeight = 56;
 
 const DropdownItem = (Props: { value: string; onPress: (e: GestureResponderEvent) => void; }) => {
   return <TouchableOpacity style={styles.dropdownItem} onPress={Props.onPress}>
-    <Text>{Props.value}</Text>
+    <Text style={styles.dropdownText}>{Props.value}</Text>
   </TouchableOpacity>
 }
 type DropdownValue = {
@@ -37,7 +37,7 @@ const Dropdown = (Props: DropdownProps) => {
           Props.onFocus?.();
         }}
       >
-        <Text style={styles.selectedText}>{selected?.name ?? "선택"}</Text>
+        <Text style={[styles.selectedText, {color: selected ? "black" : "#828282" }]}>{selected?.name ?? "선택"}</Text>
         <Down rotation={open ? 180 : 0}/>
       </TouchableOpacity>
       {open && <ScrollView style={[
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   openLabel: {
-
+    fontSize: 12,
+    fontFamily: "SCDream4",
   },
   selectorContainer: {
     height: DropdownHeight,
@@ -92,12 +93,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   selectedText: {
-    color: "#828282",
     fontSize: 16,
+    fontFamily: "SCDream4",
   },
   dropdownContainer: {
     position: "absolute",
-    maxHeight: 700,
+    maxHeight: ScreenHeight*0.5,
     left: 0,
     right: 0,
     zIndex: 10,
@@ -108,5 +109,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
+  },
+  dropdownText: {
+    fontSize: 16,
+    fontFamily: "SCDream4",
   },
 })

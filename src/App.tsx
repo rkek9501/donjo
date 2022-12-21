@@ -6,37 +6,30 @@ import {
   StyleSheet,
   useColorScheme,
 } from "react-native";
-import type { Connection } from "typeorm/browser";;
 import moment from "moment";
 moment.locale("ko");
 
-import connectDB from "DB/entities/index";
-
-import BottomSheet from "Component/BottomSheet";
+import BottomSheet from "Container/bottomSheet";
 import ContainerWrapper from "Container/index";
-import CustomModal from "Container/modal/index";
+import CustomModal from "Container/modal";
+import useDBStore from "./store/dbConnection";
+import useBSStore from "Store/bottomSheet";
 
 const App = () => { 
-  const [connection, setconnection] = useState<Connection | null>(null);
+  const initDBConnection = useDBStore((state: any) => state.initConnection);
+  const bsOpen = useBSStore((state: any) => state.open)
 
   const isDarkMode = useColorScheme() === "dark";
 
   useEffect(() => {
-    try {
-      (async () => {
-        const connection = await connectDB();
-        setconnection(connection);
-      })();
-    } catch (error) {
-      console.log(error);
-    }
+    initDBConnection();
   }, []);
   return (
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <ContainerWrapper />
       <CustomModal/>
-      {/* <BottomSheet /> */}
+      {bsOpen && <BottomSheet />}
     </SafeAreaView>
   );
 };

@@ -37,7 +37,7 @@ const Button = (Props: ButtonProps) => {
       round && white && { borderWidth: 2, borderColor: "black" }
     ]}
     onPress={Props.onPress}>
-    <Text style={[!disabled ? styles.button : styles.disabledButton, fontColor]}>
+    <Text style={[!disabled ? styles.button : styles.disabledButton, fontColor, styles.font]}>
       {title}
     </Text>
   </TouchableOpacity>
@@ -59,12 +59,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#C4C4C4",
   },
   button: {
-    fontSize: 18,
     color: "#ffffff",
   },
   disabledButton: {
-    fontSize: 18,
     color: "#828282"
+  },
+  font: {
+    fontSize: 18,
+    fontFamily: "SCDream6",
+    fontWeight: "bold",
   }
 });
 export default Button;

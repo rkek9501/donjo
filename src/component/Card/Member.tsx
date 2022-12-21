@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-import { Group, Member } from "DB/entities";
 import { Group as GroupIcon, Bank } from "Component/Icons";
+import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
+import { Member } from "DB/entities";
 import { ScreenWidth } from "src/styles";
 
 interface MemberCardProps extends Member {
@@ -10,16 +11,24 @@ interface MemberCardProps extends Member {
 };
 
 const Card = (Props: MemberCardProps) => {
+  const { onOpen } = useBSStore((state: BottomSheetStoreTypes) => state);
+  
   const groupLength: number = Props.groups?.length || 0;
+  const groupName = groupLength > 1
+    ? `${Props.groups?.[0].name} 외${(Props.groups?.length||0) - 1}개`
+    : groupLength === 1
+      ? Props.groups?.[0].name
+      : "그룹없음";
 
-  return <TouchableOpacity style={styles.container}>
+  return <TouchableOpacity
+    style={styles.container}
+    onPress={() => onOpen("member", undefined, 9, Props)}
+  >
     <Text style={styles.name}>{Props.name}</Text>
 
     {Props.size !== "bank" && <View style={{flexDirection: "row", marginTop: 8}}>
       <GroupIcon />
-      {groupLength > 0
-        ? <Text style={styles.text}>그룹명</Text>
-        : <Text style={styles.text}>그룹없음</Text>}
+      <Text style={styles.text}>{groupName}</Text>
     </View>}
 
     {Props.size !== "group" && <View style={{flexDirection: "row", marginTop: 8}}>
@@ -45,16 +54,19 @@ const styles = StyleSheet.create({
   name: {
     color: "#505050",
     fontSize: 16,
+    fontFamily: "SCDream6",
     fontWeight: "bold",
     marginBottom: 8
   },
   text: {
     color: "#505050",
+    fontFamily: "SCDream4",
     fontSize: 14,
     marginLeft: 4,
   },
   account: {
     color: "#848484",
+    fontFamily: "SCDream4",
     marginTop: 4,
   }
 });

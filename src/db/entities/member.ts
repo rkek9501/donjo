@@ -3,16 +3,14 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
-  OneToMany,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm/browser';
+  JoinTable,
+} from 'typeorm';
 import { Group } from './group';
 
 @Entity("Member")
 export class Member {
   @PrimaryGeneratedColumn("increment")
-  id?: number;
+  readonly id!: number;
   
   @Column({ unique: true })
   name!: string;
@@ -25,8 +23,18 @@ export class Member {
 
   @Column({ nullable: true })
   lastUsedDate?: Date;
-
-  @OneToMany(() => Group, (group) => group.members)
-  @JoinColumn()
+ 
+  @ManyToMany(() => Group, (group) => group.members, {
+    // cascade: ["insert", "update"],
+    onUpdate: "RESTRICT",
+    onDelete: "SET NULL",
+    eager: false,
+    nullable: true
+  })
+  @JoinTable({
+    name: 'member_group',
+    joinColumn: { name: 'member_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'group_id', referencedColumnName: 'id' },
+  })
   groups?: Group[];
 }

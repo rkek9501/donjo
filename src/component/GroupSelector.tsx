@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   label: {
     position: "absolute",
     backgroundColor: "white",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
     fontSize: 12,
     paddingHorizontal: 4,
     top: -10,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     minWidth: 40,
     backgroundColor: "white",
     color: "#505050",
-    fontFamily: "SCDream6",
+    fontFamily: "S-CoreDream-6Bold",
     fontSize: 12,
     textAlignVertical: "center",
     textAlign: "center",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   searchedGroupName: {
     color: "#505050",
-    fontFamily: "SCDream6",
+    fontFamily: "S-CoreDream-6Bold",
     fontWeight: "200",
     fontSize: 12,
     textAlignVertical: "center",

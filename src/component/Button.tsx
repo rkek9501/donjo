@@ -14,18 +14,24 @@ type ButtonProps = {
   round?: boolean;
   black?: boolean;
   white?: boolean;
+  prevIcon?: React.ReactNode;
+  postIcon?: React.ReactNode;
+  small?: boolean;
 };
 
 const Button = (Props: ButtonProps) => {
-  const { title, style: containerStyle , round, disabled, white, black } = Props;
+  const { title, style: containerStyle, round, disabled, white, black, small } = Props;
   if (typeof white !== "undefined" && typeof black !== "undefined") {
     throw new Error("you cannot use both 'white' and 'black' property on Button Component");
   }
   const bgColor = {
     backgroundColor: white ? "white" : "black",
   };
-  const fontColor = {
+  const font = {
     color: white ? "black" : "white",
+    fontSize: small ? 16 : 18,
+    fontFamily: small ? "S-CoreDream-4Regular" : "S-CoreDream-6Bold",
+    fontWeight: small ? "normal" : "bold",
   };
   return <TouchableOpacity
     disabled={disabled} 
@@ -37,20 +43,24 @@ const Button = (Props: ButtonProps) => {
       round && white && { borderWidth: 2, borderColor: "black" }
     ]}
     onPress={Props.onPress}>
-    <Text style={[!disabled ? styles.button : styles.disabledButton, fontColor, styles.font]}>
+    {Props?.prevIcon}
+    <Text style={[!disabled ? styles.button : styles.disabledButton, font]}>
       {title}
     </Text>
+    {Props?.postIcon}
   </TouchableOpacity>
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
     textAlign: "center",
     textAlignVertical: "center",
     height: 52,
     minWidth: 60,
+    borderRadius: 5,
   },
   enabledContainer: {
     backgroundColor: "#000000",
@@ -64,10 +74,5 @@ const styles = StyleSheet.create({
   disabledButton: {
     color: "#828282"
   },
-  font: {
-    fontSize: 18,
-    fontFamily: "SCDream6",
-    fontWeight: "bold",
-  }
 });
 export default Button;

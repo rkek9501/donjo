@@ -54,19 +54,19 @@ const styles = StyleSheet.create({
   name: {
     color: "#505050",
     fontSize: 16,
-    fontFamily: "SCDream6",
+    fontFamily: "S-CoreDream-6Bold",
     fontWeight: "bold",
     marginBottom: 8
   },
   text: {
     color: "#505050",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
     fontSize: 14,
     marginLeft: 4,
   },
   account: {
     color: "#848484",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
     marginTop: 4,
   }
 });

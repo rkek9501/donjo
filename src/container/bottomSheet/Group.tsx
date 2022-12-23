@@ -145,11 +145,11 @@ const styles = StyleSheet.create({
   memberName: {
     fontSize: 16,
     fontWeight: "bold",
-    fontFamily: "SCDream6"
+    fontFamily: "S-CoreDream-6Bold"
   },
   memberBank: {
     fontSize: 14,
-    fontFamily: "SCDream4"
+    fontFamily: "S-CoreDream-4Regular"
   },
   memberCrossIcon: {
     position: "absolute",

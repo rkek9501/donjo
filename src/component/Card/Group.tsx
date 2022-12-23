@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   name: {
     color: "#505050",
     fontSize: 16,
-    fontFamily: "SCDream1",
+    fontFamily: "S-CoreDream-1Thin",
     fontWeight: "bold",
     marginBottom: 8
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#505050",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
     fontSize: 14,
     marginLeft: 6,
   },

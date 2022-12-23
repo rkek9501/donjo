@@ -134,7 +134,7 @@ const TabBar = ({ state, descriptors, navigation, position }: any) => {
                 borderBottomRightRadius: TabRadius,
                 borderBottomLeftRadius: TabRadius,
               }]}>
-                <Animated.Text style={{ color: ActiveTextColor(), fontFamily:"SCDream4", fontSize: 14 }}>
+                <Animated.Text style={{ color: ActiveTextColor(), fontFamily:"S-CoreDream-4Regular", fontSize: 14 }}>
                   {label}
                 </Animated.Text>
                 <Animated.View style={[styles.tabDot, { backgroundColor: ActiveDotColor() }]} />

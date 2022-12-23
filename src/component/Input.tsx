@@ -63,16 +63,16 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 0,
     width:"100%",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   },
   inputStyle: {
     padding: 0,
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   },
   containerStyle: {
     borderRadius: 4,
     width: "100%",
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   }
 });
 export default Input;

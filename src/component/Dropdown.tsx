@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   openLabel: {
     fontSize: 12,
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   },
   selectorContainer: {
     height: DropdownHeight,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     fontSize: 16,
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   },
   dropdownContainer: {
     position: "absolute",
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
-    fontFamily: "SCDream4",
+    fontFamily: "S-CoreDream-4Regular",
   },
 })

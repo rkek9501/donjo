@@ -11,18 +11,20 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C8B4B04F0F1802975BA8DE69 /* libPods-donjo-donjoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E72014FDA35F87271E7CF05D /* libPods-donjo-donjoTests.a */; };
-		C92D3817976CAC6FADF9200B /* libPods-donjo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC591F9AFC14951F24B441B3 /* libPods-donjo.a */; };
-		7720FD50F60A4DC889214BCC /* S-CoreDream-1Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */; };
+		1F6D0C21CA364C0AAD398381 /* S-CoreDream-7ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */; };
 		366F7B9923B14A0D89D5E1CB /* S-CoreDream-2ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0D1C9A1BA3EF44BD8728920E /* S-CoreDream-2ExtraLight.otf */; };
+		3D6E499E412043B4A11F92EB /* S-CoreDream-6Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */; };
 		6FFF0D8046DB40F6ABD79D62 /* S-CoreDream-3Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 945FB3F945464AB18B6570A9 /* S-CoreDream-3Light.otf */; };
 		706DFE8B84F842DB9212369D /* S-CoreDream-4Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A3CB9A9D9A25470AA24766D1 /* S-CoreDream-4Regular.otf */; };
-		8C7340A37916496C90E02DCA /* S-CoreDream-5Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */; };
-		3D6E499E412043B4A11F92EB /* S-CoreDream-6Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */; };
-		1F6D0C21CA364C0AAD398381 /* S-CoreDream-7ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */; };
+		7720FD50F60A4DC889214BCC /* S-CoreDream-1Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		823114473BF4487782156E6C /* S-CoreDream-8Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71721BFE828E4D7A9C779ADE /* S-CoreDream-8Heavy.otf */; };
+		8C7340A37916496C90E02DCA /* S-CoreDream-5Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */; };
 		A2030E477A764F3CBDD608EA /* S-CoreDream-9Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5A8D89FD8F04414A7C2E87C /* S-CoreDream-9Black.otf */; };
+		C8B4B04F0F1802975BA8DE69 /* libPods-donjo-donjoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E72014FDA35F87271E7CF05D /* libPods-donjo-donjoTests.a */; };
+		C92D3817976CAC6FADF9200B /* libPods-donjo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC591F9AFC14951F24B441B3 /* libPods-donjo.a */; };
+		E0C8A38E295C5694003C1575 /* picker in Resources */ = {isa = PBXBuildFile; fileRef = E0C8A38D295C5694003C1575 /* picker */; };
+		E0C8A390295C56BE003C1575 /* RNCPicker.podspec in Resources */ = {isa = PBXBuildFile; fileRef = E0C8A38F295C56BE003C1575 /* RNCPicker.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,37 +42,30 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* donjoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = donjoTests.m; sourceTree = "<group>"; };
 		0BF64872F755826C56CF5009 /* Pods-donjo-donjoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-donjo-donjoTests.debug.xcconfig"; path = "Target Support Files/Pods-donjo-donjoTests/Pods-donjo-donjoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0D1C9A1BA3EF44BD8728920E /* S-CoreDream-2ExtraLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-2ExtraLight.otf"; path = "../assets/fonts/S-CoreDream-2ExtraLight.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* donjo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = donjo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = donjo/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = donjo/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = donjo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = donjo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = donjo/main.m; sourceTree = "<group>"; };
+		71721BFE828E4D7A9C779ADE /* S-CoreDream-8Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-8Heavy.otf"; path = "../assets/fonts/S-CoreDream-8Heavy.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = donjo/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		945FB3F945464AB18B6570A9 /* S-CoreDream-3Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-3Light.otf"; path = "../assets/fonts/S-CoreDream-3Light.otf"; sourceTree = "<group>"; };
+		9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-6Bold.otf"; path = "../assets/fonts/S-CoreDream-6Bold.otf"; sourceTree = "<group>"; };
 		9D67E585359CE16F0AE2891C /* Pods-donjo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-donjo.release.xcconfig"; path = "Target Support Files/Pods-donjo/Pods-donjo.release.xcconfig"; sourceTree = "<group>"; };
+		A3CB9A9D9A25470AA24766D1 /* S-CoreDream-4Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-4Regular.otf"; path = "../assets/fonts/S-CoreDream-4Regular.otf"; sourceTree = "<group>"; };
+		C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-7ExtraBold.otf"; path = "../assets/fonts/S-CoreDream-7ExtraBold.otf"; sourceTree = "<group>"; };
 		CFCB5AB74076355213F199EC /* Pods-donjo-donjoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-donjo-donjoTests.release.xcconfig"; path = "Target Support Files/Pods-donjo-donjoTests/Pods-donjo-donjoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1948D7791EDFC158A4EE152 /* Pods-donjo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-donjo.debug.xcconfig"; path = "Target Support Files/Pods-donjo/Pods-donjo.debug.xcconfig"; sourceTree = "<group>"; };
+		D5A8D89FD8F04414A7C2E87C /* S-CoreDream-9Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-9Black.otf"; path = "../assets/fonts/S-CoreDream-9Black.otf"; sourceTree = "<group>"; };
+		DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-1Thin.otf"; path = "../assets/fonts/S-CoreDream-1Thin.otf"; sourceTree = "<group>"; };
+		E0C8A38D295C5694003C1575 /* picker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = picker; path = "../node_modules/@react-native-picker/picker"; sourceTree = "<group>"; };
+		E0C8A38F295C56BE003C1575 /* RNCPicker.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RNCPicker.podspec; path = "../node_modules/@react-native-picker/picker/RNCPicker.podspec"; sourceTree = "<group>"; };
 		E72014FDA35F87271E7CF05D /* libPods-donjo-donjoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-donjo-donjoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC591F9AFC14951F24B441B3 /* libPods-donjo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-donjo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4B89048C96C4D0DBF6BC75B /* SCDream1.otf */ = {isa = PBXFileReference; name = "SCDream1.otf"; path = "../assets/fonts/SCDream1.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AB99FF0CA39C438291158472 /* SCDream2.otf */ = {isa = PBXFileReference; name = "SCDream2.otf"; path = "../assets/fonts/SCDream2.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EA2847B472464691ABD0D66A /* SCDream3.otf */ = {isa = PBXFileReference; name = "SCDream3.otf"; path = "../assets/fonts/SCDream3.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4468F7E4FE5D46E59CF44641 /* SCDream4.otf */ = {isa = PBXFileReference; name = "SCDream4.otf"; path = "../assets/fonts/SCDream4.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A2C92A3A019743B1A4BC9849 /* SCDream5.otf */ = {isa = PBXFileReference; name = "SCDream5.otf"; path = "../assets/fonts/SCDream5.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CC67773D91A54ED0A5D9DEC1 /* SCDream6.otf */ = {isa = PBXFileReference; name = "SCDream6.otf"; path = "../assets/fonts/SCDream6.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FDEAC97935504EB1B6CDAF9A /* SCDream7.otf */ = {isa = PBXFileReference; name = "SCDream7.otf"; path = "../assets/fonts/SCDream7.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BF8D3ABB320649A28B31B9C7 /* SCDream8.otf */ = {isa = PBXFileReference; name = "SCDream8.otf"; path = "../assets/fonts/SCDream8.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		72BC02A2FB5C4105A15F999C /* SCDream9.otf */ = {isa = PBXFileReference; name = "SCDream9.otf"; path = "../assets/fonts/SCDream9.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */ = {isa = PBXFileReference; name = "S-CoreDream-1Thin.otf"; path = "../assets/fonts/S-CoreDream-1Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0D1C9A1BA3EF44BD8728920E /* S-CoreDream-2ExtraLight.otf */ = {isa = PBXFileReference; name = "S-CoreDream-2ExtraLight.otf"; path = "../assets/fonts/S-CoreDream-2ExtraLight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		945FB3F945464AB18B6570A9 /* S-CoreDream-3Light.otf */ = {isa = PBXFileReference; name = "S-CoreDream-3Light.otf"; path = "../assets/fonts/S-CoreDream-3Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A3CB9A9D9A25470AA24766D1 /* S-CoreDream-4Regular.otf */ = {isa = PBXFileReference; name = "S-CoreDream-4Regular.otf"; path = "../assets/fonts/S-CoreDream-4Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */ = {isa = PBXFileReference; name = "S-CoreDream-5Medium.otf"; path = "../assets/fonts/S-CoreDream-5Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */ = {isa = PBXFileReference; name = "S-CoreDream-6Bold.otf"; path = "../assets/fonts/S-CoreDream-6Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */ = {isa = PBXFileReference; name = "S-CoreDream-7ExtraBold.otf"; path = "../assets/fonts/S-CoreDream-7ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		71721BFE828E4D7A9C779ADE /* S-CoreDream-8Heavy.otf */ = {isa = PBXFileReference; name = "S-CoreDream-8Heavy.otf"; path = "../assets/fonts/S-CoreDream-8Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D5A8D89FD8F04414A7C2E87C /* S-CoreDream-9Black.otf */ = {isa = PBXFileReference; name = "S-CoreDream-9Black.otf"; path = "../assets/fonts/S-CoreDream-9Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "S-CoreDream-5Medium.otf"; path = "../assets/fonts/S-CoreDream-5Medium.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,9 +128,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6BCC66592FE64B109E49C1A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */,
+				0D1C9A1BA3EF44BD8728920E /* S-CoreDream-2ExtraLight.otf */,
+				945FB3F945464AB18B6570A9 /* S-CoreDream-3Light.otf */,
+				A3CB9A9D9A25470AA24766D1 /* S-CoreDream-4Regular.otf */,
+				FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */,
+				9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */,
+				C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */,
+				71721BFE828E4D7A9C779ADE /* S-CoreDream-8Heavy.otf */,
+				D5A8D89FD8F04414A7C2E87C /* S-CoreDream-9Black.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E0C8A38F295C56BE003C1575 /* RNCPicker.podspec */,
+				E0C8A38D295C5694003C1575 /* picker */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -175,23 +188,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		6BCC66592FE64B109E49C1A4 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				DA0BC15F11AA474498ED7137 /* S-CoreDream-1Thin.otf */,
-				0D1C9A1BA3EF44BD8728920E /* S-CoreDream-2ExtraLight.otf */,
-				945FB3F945464AB18B6570A9 /* S-CoreDream-3Light.otf */,
-				A3CB9A9D9A25470AA24766D1 /* S-CoreDream-4Regular.otf */,
-				FD4BEA6AA07849958FDB6C03 /* S-CoreDream-5Medium.otf */,
-				9AB229EAC009414E8BCAF183 /* S-CoreDream-6Bold.otf */,
-				C00220D085254F51A94C1EBE /* S-CoreDream-7ExtraBold.otf */,
-				71721BFE828E4D7A9C779ADE /* S-CoreDream-8Heavy.otf */,
-				D5A8D89FD8F04414A7C2E87C /* S-CoreDream-9Black.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -289,7 +285,9 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7720FD50F60A4DC889214BCC /* S-CoreDream-1Thin.otf in Resources */,
 				366F7B9923B14A0D89D5E1CB /* S-CoreDream-2ExtraLight.otf in Resources */,
+				E0C8A38E295C5694003C1575 /* picker in Resources */,
 				6FFF0D8046DB40F6ABD79D62 /* S-CoreDream-3Light.otf in Resources */,
+				E0C8A390295C56BE003C1575 /* RNCPicker.podspec in Resources */,
 				706DFE8B84F842DB9212369D /* S-CoreDream-4Regular.otf in Resources */,
 				8C7340A37916496C90E02DCA /* S-CoreDream-5Medium.otf in Resources */,
 				3D6E499E412043B4A11F92EB /* S-CoreDream-6Bold.otf in Resources */,

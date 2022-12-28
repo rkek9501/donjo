@@ -1,15 +1,10 @@
-import React, { useRef, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, GestureResponderEvent, ScrollView } from "react-native";
-import { Down } from "./Icons";
-import Styles, { ScreenHeight } from "../styles";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import Text from "Component/Text";
+import { Picker } from "@react-native-picker/picker";
 
 const DropdownHeight = 56;
 
-const DropdownItem = (Props: { value: string; onPress: (e: GestureResponderEvent) => void; }) => {
-  return <TouchableOpacity style={styles.dropdownItem} onPress={Props.onPress}>
-    <Text style={styles.dropdownText}>{Props.value}</Text>
-  </TouchableOpacity>
-}
 type DropdownValue = {
   name: string; 
 }
@@ -25,39 +20,26 @@ type DropdownProps = {
 const Dropdown = (Props: DropdownProps) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(Props.selected || null);
-  const ref = useRef(null);
 
   return <View style={styles.container}>
     <View style={styles.container}>
       {Props.label && <Text style={[styles.label, open && styles.openLabel]}>{Props.label}</Text>}
-      <TouchableOpacity
-        style={[styles.selectorContainer, open && {borderWidth: 2}]}
-        onPress={() => {
-          setOpen(!open);
-          Props.onFocus?.();
-        }}
-      >
-        <Text style={[styles.selectedText, {color: selected ? "black" : "#828282" }]}>{selected?.name ?? "선택"}</Text>
-        <Down rotation={open ? 180 : 0}/>
-      </TouchableOpacity>
-      {open && <ScrollView style={[
-        styles.dropdownContainer,
-        Styles.shadow,
-        Props.top ? {bottom: DropdownHeight+2} : {top: DropdownHeight+2}
-      ]}>
-        {Props.values.map((item, key) => <DropdownItem
-          key={key}
-          value={item.name}
-          onPress={() => {
-            setSelected(item);
-            Props.onChangeSelected?.(item);
-            setOpen(false);
-          }}
-        />)}
-      </ScrollView>}
+      <View style={[styles.selectorContainer, open && { borderWidth: 2 }]} >
+        <Picker
+          mode="dropdown"
+          style={{ flex: 1, padding: 0, fontFamily: "S-CoreDream-6Bold" }}
+          itemStyle={{ flex: 1, padding: 0, fontFamily: "S-CoreDream-6Bold" }}
+          selectedValue={selected}
+          onValueChange={(item) => setSelected(item)}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+        >
+          {Props.values.map((item, key) => <Picker.Item key={key} label={item.name} value={item} fontFamily="S-CoreDream-6Bold" />)}
+        </Picker>
+      </View>
     </View>
   </View>
-}
+};
 
 export default Dropdown;
 
@@ -66,6 +48,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     height: DropdownHeight,
+    zIndex: 10,
   },
   label: {
     position: "absolute",
@@ -79,11 +62,10 @@ const styles = StyleSheet.create({
   },
   openLabel: {
     fontSize: 12,
-    fontFamily: "S-CoreDream-4Regular",
   },
   selectorContainer: {
     height: DropdownHeight,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -91,27 +73,5 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 0.5,
     borderRadius: 4,
-  },
-  selectedText: {
-    fontSize: 16,
-    fontFamily: "S-CoreDream-4Regular",
-  },
-  dropdownContainer: {
-    position: "absolute",
-    maxHeight: ScreenHeight*0.5,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    backgroundColor: "lightgray",
-  },
-  dropdownItem: {
-    height: 50,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  dropdownText: {
-    fontSize: 16,
-    fontFamily: "S-CoreDream-4Regular",
   },
 })

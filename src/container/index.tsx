@@ -1,13 +1,17 @@
-import React from "react";
-import { View, TouchableWithoutFeedback, Animated, Text, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, TouchableWithoutFeedback, Animated, Text, StyleSheet, Platform, useColorScheme } from "react-native";
 import { NavigationContainer, NavigationContext } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { cardBgColors, TabBarHight } from "src/styles";
+import Button from "Component/Button";
+import { TabBarHight, ThemeColors } from "src/styles";
 import Main from "./main";
 import Member from "./member";
-import Button from "Component/Button";
+import LoadMember from "./member/loadMember";
+import BottomSheet from "./bottomSheet";
+
+import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -16,7 +20,7 @@ const TabRadius = 14;
 const HomeScreen = () => {
   const navigation = React.useContext(NavigationContext);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[0] }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: ThemeColors.yellow }}>
       <Text>Home!</Text>
       <Button round title="다음" style={{ width: "80%" }} onPress={() => navigation?.navigate("Main")}/>
     </View>
@@ -40,7 +44,7 @@ const MemberCard = (props: MemberCardProps) => {
 
 const HistoryScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: cardBgColors[2] }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: ThemeColors.green }}>
       <Text>History!</Text>
       <View style={{ flexDirection: "row", width: "100%" }}>
         <MemberCard name="권오수권오수권오수권오수권오수권오수권오수권오수" groupName="대학" />
@@ -51,8 +55,11 @@ const HistoryScreen = () => {
 };
 
 const TabBar = ({ state, descriptors, navigation, position }: any) => {
+  const paddingTop = Platform.OS === "ios" ? 0 : 10;
+  const isDarkMode = useColorScheme() === "dark";
+
   return (
-    <View key={position} style={{ flexDirection: 'row', marginTop: 10 }}>
+    <View key={position} style={{ flexDirection: 'row', paddingTop, backgroundColor: isDarkMode ? "black" :"white" }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const label =
@@ -65,24 +72,24 @@ const TabBar = ({ state, descriptors, navigation, position }: any) => {
         const isFocused = state.index === index;
         const MainColor = () => {
           switch (index) {
-            case 1: return cardBgColors[1];
-            case 2: return cardBgColors[2];
-            default: return cardBgColors[0];
+            case 1: return ThemeColors.red;
+            case 2: return ThemeColors.green;
+            default: return ThemeColors.yellow;
           }
         }
         const LeftBottomColor = () => {
           if (isFocused && index === 2)
-            return cardBgColors[2];
+            return ThemeColors.green;
           else if (index === 0 || (index === 1 && state.index === 0))
-           return cardBgColors[0];
-          else return cardBgColors[1];
+           return ThemeColors.yellow;
+          else return ThemeColors.red;
         }
         const RightBottomColor = () => {
           if (isFocused && index === 0)
-            return cardBgColors[0];
+            return ThemeColors.yellow;
           else if (index === 2 || (index === 1 && state.index === 2))
-           return cardBgColors[2];
-          else return cardBgColors[1];
+           return ThemeColors.green;
+          else return ThemeColors.red;
         }
         const ActiveTextColor = () => {
           if (index === 0) return "black";
@@ -150,22 +157,32 @@ const TabBar = ({ state, descriptors, navigation, position }: any) => {
 }
 
 const TabNavigationWrapper = () => {
+  const bsState = useBSStore((state: BottomSheetStoreTypes) => state);
   return (
-    <Tab.Navigator screenOptions={{ swipeEnabled: false }} initialRouteName="맴버 저장" tabBar={(props) => <TabBar {...props} />} >
-      <Tab.Screen name="새 모임 추가" component={HomeScreen} />
-      <Tab.Screen name="맴버 저장" component={Member} />
-      <Tab.Screen name="이전 기록" component={HistoryScreen} />
-    </Tab.Navigator>
+    <View style={{ flex:1 }}>
+      <Tab.Navigator
+        screenOptions={{ swipeEnabled: false, animationEnabled: false }}
+        initialRouteName="맴버 저장"
+        tabBar={(props) => <TabBar {...props} />}
+      >
+        <Tab.Screen name="새 모임 추가" component={HomeScreen} />
+        <Tab.Screen name="맴버 저장" >
+          {() => <Member {...bsState}/>}
+        </Tab.Screen>
+        <Tab.Screen name="이전 기록" component={HistoryScreen} />
+      </Tab.Navigator>
+      {bsState.open && <BottomSheet {...bsState}/>}
+    </View>
   );
 };
 
 const StackNavigationWrapper = () => {
   //   const isDarkMode = useColorScheme() === "light";
   return <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="TabMenu">
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="TabMenu" >
       <Stack.Screen name="TabMenu" component={TabNavigationWrapper} />
       <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen name="Member" component={Member} />
+      <Stack.Screen name="LoadMember" component={LoadMember} />
     </Stack.Navigator>
   </NavigationContainer>;
 };

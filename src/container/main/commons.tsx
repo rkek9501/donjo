@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedStyle, withTiming
 } from "react-native-reanimated";
-import { cardBgColors, CardHieght, ScreenHeight, ScreenWidth } from '../../styles';
+import { CardHieght, ScreenHeight, ScreenWidth, ThemeColors } from '../../styles';
 import { Dot } from '../../styles/icon';
 
 export const ValueView = (Props: { value: string; unit?: string; }) => {
@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 2,
     width: ScreenWidth,
-    backgroundColor: cardBgColors[0],
+    backgroundColor: ThemeColors.yellow,
     height: ScreenHeight
   },
   pageMain: {

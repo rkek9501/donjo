@@ -1,5 +1,5 @@
 import create from "zustand";
-import type { Connection } from "typeorm/browser";
+import type { Connection } from "typeorm";
 
 import AppDataSource from "DB/entities/index";
 import { Member } from "DB/entities";
@@ -15,15 +15,19 @@ export type DBConnection = {
   groups?: Group[];
 };
 
-type DBConnectionActions = {
+export type DBConnectionActions = {
   initConnection: () => void;
   setConnection: (c: Connection | null) => void;
   setMembers: (list: Member[]) => void;
   setGroups: (list: Group[]) => void;
   reload: () => void;
+  reloadMembers: () => void;
+  reloadGroups: () => void;
   createMember: (member: MemberInput) => void;
   updateMember: (id: number, member: MemberInput) => void;
   removeMemberOfGroup: (memberId: number, groupId: number) => void;
+  createGroup: (group: GroupInput) => void;
+  updateGroup: (id: number, group: GroupInput) => void;
 };
 
 export type DBConnectionStoreTypes = DBConnection & DBConnectionActions;
@@ -106,15 +110,14 @@ const useDBStore = create((set, get: () => any) => ({
     const { reload } = get();
     reload();
   },
-  createGroup: async (groupName: string) => {
-    const created = await groupResolver.createGroup({ name: groupName, members: [] });
-    console.log({ groupName, created });
+  createGroup: async (group: GroupInput) => {
+    const created = await groupResolver.createGroup(group);
     const { reloadGroups } = get();
     reloadGroups();
     return created;
   },
   updateGroup: async (groupId: number, group: GroupInput) => {
-    const updated = await groupResolver.updateGroup(groupId, { name: group.name });
+    const updated = await groupResolver.updateGroup(groupId, group);
     const { reload } = get();
     reload();
     return updated;

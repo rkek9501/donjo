@@ -19,7 +19,7 @@ export const BackDrop = (props: BottomSheetDefaultBackdropProps) => {
 };
 
 export const FooterButtons = (Props: { onPressClose: () => void; onPressOk: () => void; }) => {
-  return <View style={{flexDirection:"row", width: "100%", paddingHorizontal: 16}}>
+  return <View style={{flexDirection:"row", width: "100%", paddingHorizontal: 16 }}>
     <Button round white
       title="닫기"
       style={{flex:1, marginBottom:4, marginRight: 4}}
@@ -33,19 +33,19 @@ export const FooterButtons = (Props: { onPressClose: () => void; onPressOk: () =
   </View>;
 };
 
-const BottomSheetComponent = () => {
-  const { type } = useBSStore((state: BottomSheetStoreTypes) => state);
-  if (type === "member") return <MemberView />;
-  else if (type === "group") return <GroupView />;
+const BottomSheetComponent = (Props: BottomSheetStoreTypes) => {
+  if (Props.type === "member") return <MemberView {...Props} />
+  else if (Props.type === "group") return <GroupView {...Props} />;
   // else if (type === "ruler") return <RulerView />;
   return <View></View>;
 };
 
 export const bottomSheetStyles = StyleSheet.create({
   container: {
-    backgroundColor: "white", 
+    backgroundColor: "white",
     borderTopLeftRadius: 12,
-    borderTopRightRadius: 12
+    borderTopRightRadius: 12,
+    paddingTop: 20,
   },
   shadow: {
     shadowColor: "#000",

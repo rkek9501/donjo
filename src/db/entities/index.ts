@@ -15,6 +15,7 @@ class Source {
       logging: ['error', 'query', 'schema'],
       synchronize: true,
       // dropSchema: true,
+      migrationsRun: false,
       entities: [Member, Group, Pay, Bill, Dutch],
     });
   };

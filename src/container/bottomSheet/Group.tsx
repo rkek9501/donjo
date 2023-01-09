@@ -1,24 +1,34 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { NavigationContext } from "@react-navigation/native";
 import BottomSheet, { BottomSheetFooter, BottomSheetView } from "@gorhom/bottom-sheet";
+import uniqBy from "lodash/uniqBy";
 
-import { ScreenWidth } from "src/styles";
-import { Bank, CircleCrossBlack } from "Component/Icons";
+import { ScreenWidth, ThemeColors } from "src/styles";
+import { Bank, CircleCrossWithBg, Plus } from "Component/Icons";
 import Input from "Component/Input";
+import Text from "Component/Text";
+import Button from "Component/Button";
 import { BackDrop, bottomSheetStyles, FooterButtons, snapPoints } from "./index";
 
-import type { Member } from "DB/entities";
-import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
-import useDBStore, { DBConnectionStoreTypes } from "Store/dbConnection";
 import { useBottomSheetBackHandler } from "Hook/useBackHandler";
 
-const GroupBottomSheet = (Props: {}) => {
-  const { height, onBackPressBS, data, onClose } = useBSStore((state: BottomSheetStoreTypes) => state);
-  const removeMemberOfGroup = useDBStore((state: DBConnectionStoreTypes) => state.removeMemberOfGroup);
-  const updateMember = useDBStore((state: DBConnectionStoreTypes) => state.updateMember);
+import type { Member } from "DB/entities";
+import type { BottomSheetStoreTypes } from "Store/bottomSheet";
+import useDBStore, { DBConnectionActions } from "Store/dbConnection";
+import useRoutesStore, { RoutesStoreTypes } from "Store/routes";
+
+const GroupBottomSheet = (Props: BottomSheetStoreTypes) => {
+  const navigation = useContext(NavigationContext);
+  const { height, onBackPressBS, data, onClose } = Props;
+  // const removeMemberOfGroup = useDBStore((state: DBConnectionStoreTypes) => state.removeMemberOfGroup);
+  const { createGroup, updateGroup } = useDBStore((state: DBConnectionActions) => state);
+  const { setRequest } = useRoutesStore((state: RoutesStoreTypes) => state);
+
   const [name, setName] = useState<string>(data?.name || "");
   const [focus, setFocus] = useState<"name"|null>(null)
   const sheetRef = useRef<BottomSheet>(null);
+  const [members, setMembers] = useState<Member[]>(data?.members || []);
 
   useBottomSheetBackHandler(onBackPressBS, sheetRef);
 
@@ -29,22 +39,30 @@ const GroupBottomSheet = (Props: {}) => {
   }, [height]);
 
   const onChnage = useCallback((index) => {
-    console.log("onChnage", index);
     if (typeof height === "undefined") return;
     if (height >= 1) sheetRef.current?.snapToIndex(height);
     else if (height === -1) sheetRef.current?.close();
   }, [sheetRef, height]);
 
-  const onPressRemoveMemberOfGroup = useCallback((memberId: number) => {
-    if (data?.id) removeMemberOfGroup(memberId ,data?.id);
-  }, [Props]);
+  const onPressRemoveMemberOfGroup = useCallback((member: Member) => {
+    setMembers((prev) => prev.filter((item) => item.name !== member.name));
+  }, [setMembers]);
 
   const onPressOk = useCallback(() => {
-    if (data?.name !== name && data?.id) {
-      updateMember(data?.id, { name });
+    if (data?.id) {
+      updateGroup(data?.id, { name, members });
+    } else {
+      createGroup({ name, members });
     }
     onClose();
-  }, [name, data?.name]);
+  }, [name, data?.name, members]);
+
+  const onPressAddMemberBtn = useCallback(() => {
+    navigation?.navigate("LoadMember");
+    setRequest({ purpose: "member", callback: (data: any) => {
+      setMembers((prev) => uniqBy(([] as Member[]).concat(prev, data?.members || []), "name"));
+    } });
+  }, [navigation, setRequest, setMembers])
 
   return (<BottomSheet
     backgroundStyle={{ height: 0 }}
@@ -71,14 +89,23 @@ const GroupBottomSheet = (Props: {}) => {
         />
 
         <View style={styles.membersScrollArea}>
-          {data?.members?.map((data: Member, key: number) => <MemberView
+          {members?.map((data: Member, key: number) => <MemberView
             key={key}
             {...data}
-            onPressRemove={onPressRemoveMemberOfGroup}
+            onPressRemove={() => onPressRemoveMemberOfGroup(data)}
           />)}
+          {members?.length === 0 && <Text style={{fontSize: 14, color: ThemeColors.whiteBlack[500], marginTop: 10, textAlign: "center"}}>아직 멤버가 없습니다!</Text>}
+          <View style={{height: 34, width: "100%", justifyContent: "center", alignItems: "center", marginTop: 12}}>
+            <Button round small
+              style={{ width: 34, height: 34 }}
+              prevIcon={<Plus/>}
+              onPress={onPressAddMemberBtn}
+            />
+          </View>
         </View>
 
         {/* <Text style={styles.wranningText}>수정된 결과는 바로 저장됩니다.</Text> */}
+
       </View>
     </BottomSheetView>
   </BottomSheet>)
@@ -86,7 +113,7 @@ const GroupBottomSheet = (Props: {}) => {
 
 const MemberView = (Props: Member & { onPressRemove: (id: number) => void; }) => {
   return <View style={[styles.row, styles.memberRowContainer]}>
-    <Text style={styles.memberName}>{Props.name}</Text>
+    <Text fontStyle="bold" style={styles.memberName}>{Props.name}</Text>
     {(Props.bank || Props.account) && <View style={[styles.row]}>
       <Bank />
       <Text style={styles.memberBank}>{Props.bank}</Text>
@@ -96,7 +123,7 @@ const MemberView = (Props: Member & { onPressRemove: (id: number) => void; }) =>
     <TouchableOpacity
       onPress={() => Props.onPressRemove(Props.id)}
       style={styles.memberCrossIcon}>
-      <CircleCrossBlack />
+      <CircleCrossWithBg />
     </TouchableOpacity>
   </View>
 };
@@ -104,8 +131,6 @@ const MemberView = (Props: Member & { onPressRemove: (id: number) => void; }) =>
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-    // justifyContent: "space-between",
-    // paddingVertical: 16,
     paddingHorizontal: 16,
     marginBottom: 40,
     paddingBottom: 40,
@@ -145,11 +170,9 @@ const styles = StyleSheet.create({
   memberName: {
     fontSize: 16,
     fontWeight: "bold",
-    fontFamily: "S-CoreDream-6Bold"
   },
   memberBank: {
     fontSize: 14,
-    fontFamily: "S-CoreDream-4Regular"
   },
   memberCrossIcon: {
     position: "absolute",

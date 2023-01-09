@@ -1,9 +1,10 @@
 import React, { useCallback } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
 import { Group, Member } from "DB/entities";
 import { Person } from "Component/Icons";
+import Text from "Component/Text";
 
 const Card = (Props: Group) => {
   const { onOpen } = useBSStore((state: BottomSheetStoreTypes) => state);
@@ -13,7 +14,7 @@ const Card = (Props: Group) => {
     onPress={() => onOpen("group", undefined, 8, Props)}
   >
     <View style={styles.groupNameContainer}>
-      <Text style={styles.name}>{Props.name}</Text>
+      <Text fontStyle="thin" style={styles.name}>{Props.name}</Text>
       <Text style={styles.lastUsedDate}>{Props.lastUsedDate}</Text>
     </View>
 
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
   name: {
     color: "#505050",
     fontSize: 16,
-    fontFamily: "S-CoreDream-1Thin",
     fontWeight: "bold",
     marginBottom: 8
   },
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#505050",
-    fontFamily: "S-CoreDream-4Regular",
     fontSize: 14,
     marginLeft: 6,
   },

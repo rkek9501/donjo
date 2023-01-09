@@ -1,140 +1,127 @@
-import React, { useCallback, useState } from 'react';
-import { FlatList, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, View, StyleSheet } from "react-native";
+import { NavigationContext } from "@react-navigation/native";
 
-import Button from 'Component/Button';
+import { ScreenWidth, TabHeaderHeight, MainHeight, ThemeColors } from "../../styles";
+import Button from "Component/Button";
+import { MemberCard, GroupCard } from "Component/Card";
+import { Plus } from "Component/Icons";
+import { SelectorType, SortDropdown, SortKey, TypeSelector } from "Component/MemberFilter";
+import Text from "Component/Text";
 
-import useDBStore from "Store/dbConnection";
-import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
-import MemberResolver from 'DB/resolvers/member';
-import { Member } from 'DB/entities';
+import useSort from "Hook/useSort";
 
-import { ScreenWidth, cardBgColors, TabHeaderHeight, MainHeight } from "../../styles";
-import { MemberCard, GroupCard } from 'Component/Card';
-import { Down, Layer } from 'Component/Icons';
+import { Group, Member } from "DB/entities";
+import useDBStore, { DBConnectionStoreTypes } from "Store/dbConnection";
+import { BottomSheetStoreTypes } from "Store/bottomSheet";
+import useRoutesStore, { RoutesStoreTypes } from "Store/routes";
 
-const MemberHeader = () => {
-  const { onOpen } = useBSStore((state: BottomSheetStoreTypes) => state);
-  const reload = useDBStore((state: any) => state.reload);
-
-  const addMember = useCallback(async(newMember: Member) => {
-    // const resolver = new MemberResolver();
-    // const created = await resolver.createMember({
-    //   name: newMember.name,
-    //   bank: newMember.bank || undefined,
-    //   account: newMember.account || undefined,
-    //   groups: newMember.groups || [],
-    // });
-    // // console.log({ created });
-    // reload();
-  }, []);
-
+const MemberHeader = (Props: { selector: SelectorType, onOpen: any }) => {
   return <View style={[styles.headerContainer]}>
-    <Text style={styles.headerTitle}>멤버 추가하기</Text>
-    <Button
-      title='추가하기 +'
+    <Text  fontStyle="bold" style={styles.headerTitle}>멤버 관리하기</Text>
+    <Button small
+      title="추가하기"
+      postIcon={<Plus size={13} />}
       style={{ width: 124, height: 40 }}
-      onPress={() => onOpen("member", (newMember: any) => addMember(newMember), 9)}
+      onPress={() => {
+        if (Props.selector === "member") Props.onOpen("member", undefined, 9);
+        if (Props.selector === "group") Props.onOpen("group", undefined, 7);
+      }}
     />
   </View>
 };
 
-type SelectorType = "member" | "group";
-const TypeSelector = (Props: { type: SelectorType; onPress: (e: GestureResponderEvent)=>void }) => {
-  return <TouchableOpacity
-    style={{
-      backgroundColor: "#D9D9D9",
-      flexDirection: "row",
-      alignItems: "center",
-      height: 30,
-      borderRadius: 15,
-      paddingHorizontal: 12,
-      width: Props.type === "member" ? 114 : 104,
-      justifyContent: "space-between",
-    }}
-    onPress={Props.onPress}
-  >
-    <Text style={{color:"#505050",fontSize:12,fontFamily:"SCDream4"}}>{Props.type === "member" ? "그룹으로" : "멤버로"} 보기</Text>
-    <Layer />
-  </TouchableOpacity>
-};
-
-const SortValues = {
-  recent: "최근 사용 순서",
-  nameAsc: "이름순",
-  nameDesc: "이름역순",
-}
-type SortKey = "recent" | "nameAsc" | "nameDesc";
-
-const SortDropdown = (Props: { sortKey: SortKey; setSort: (key: SortKey) => void; }) => {
-  const [open, setOpen] = useState(false);
-
-  return <View style={{position: "relative", minWidth: 120}}>
-    <TouchableOpacity
-      onPress={(e: GestureResponderEvent) => setOpen(!open)}
-      style={{
-        height: 30,
-        backgroundColor: "#D9D9D9",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: 8,
-        borderRadius: 4,
-      }}
-    >
-      <Text style={{color:"#505050",fontSize:12,marginRight: 8,fontFamily:"SCDream4"}}>{SortValues?.[Props.sortKey] || "순서"}</Text>
-      <Down/>
-    </TouchableOpacity>
-    {open && <View style={{position:"absolute", backgroundColor: "white", minWidth:120, minHeight:40,top:30,zIndex:1}}>
-      <FlatList
-        data={[
-          {value: "recent", text: SortValues.recent},
-          {value: "nameAsc", text: SortValues.nameAsc},
-          {value: "nameDesc", text: SortValues.nameDesc}
-        ]}
-        renderItem={(data: any) => {
-          console.log({ data })
-          return <TouchableOpacity key={data.index} onPress={() => {
-            Props.setSort(data.item.value);
-            setOpen(false);
-          }}>
-            <Text style={{paddingHorizontal: 4,paddingVertical: 8,fontSize:12,fontFamily:"SCDream4"}}>{data.item.text}</Text>
-          </TouchableOpacity>
-        }}
-      />
-    </View>}
-  </View>
-};
-
-const MemberMain = () => {
-  const memberList = useDBStore((states: any) => states.members);
-  const groupList = useDBStore((states: any) => states.groups);
+const MemberMain = (Props: BottomSheetStoreTypes) => {
+  const navigation = useContext(NavigationContext);
+  const { groups, members } = useDBStore((states: DBConnectionStoreTypes) => states);
   const [selector, setSelector] = useState<SelectorType>("group");
   const [sort, setSort] = useState<SortKey>("recent");
-
+  const { setRequest } = useRoutesStore((state: RoutesStoreTypes) => state);
+  
   const onPressSelector = useCallback(() => {
     setSelector(selector === "group" ? "member" : "group");
   }, [selector])
 
+  const onPressLoadAndStart = useCallback(() => {
+    navigation?.navigate("LoadMember");
+    setRequest({ purpose: "calc", callback: (data: any) => {
+      console.log("return",{data});
+    } });
+  }, [navigation, setRequest]);
+
   return <View style={[styles.mainContainer]}>
-    <MemberHeader/>
+    <MemberHeader selector={selector} onOpen={Props.onOpen} />
     <View style={styles.filterContainer}>
       <TypeSelector type={selector} onPress={onPressSelector} />
       <SortDropdown sortKey={sort} setSort={setSort} />
     </View>
+    
+    {selector === "group" && <GroupList sortKey={sort} groups={groups} />}
+    {selector === "member" && <MemberList sortKey={sort} members={members} />}
 
-    {selector === "member" && <FlatList
-      style={styles.listContainer}
-      data={memberList}
-      numColumns={2}
-      renderItem={(data: any) => <MemberCard key={data.index} {...data.item} size="all" />}
-    />}
-    {selector === "group" && <FlatList
-      style={styles.listContainer}
-      data={groupList}
-      numColumns={1}
-      renderItem={(data: any) => <GroupCard key={data.index} {...data.item} />}
-    />}
+    <Button round
+      disabled={(selector === "group" && !groups?.length)||(selector === "member" && !members?.length)}
+      title="불러가기"
+      style={styles.loadMemberBtn}
+      onPress={onPressLoadAndStart}
+    />
   </View>
+};
+
+const GroupList = (Props: { sortKey: SortKey; groups?: Group[]; }) => {
+  const [sorted, setData] = useSort(Props.groups || [], Props.sortKey);
+  const reloadGroups = useDBStore((state: DBConnectionStoreTypes) => state.reloadGroups);
+  const [isRefreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    setData(Props.groups || [])
+  }, [Props.groups]);
+
+  return <>{sorted
+    ? sorted?.length > 0
+      ?  <FlatList
+          style={styles.listContainer}
+          refreshing={isRefreshing}
+          onRefresh={async() => {
+            setRefreshing(true);
+            await reloadGroups();
+            setRefreshing(false);
+          }}
+          data={sorted}
+          numColumns={1}
+          renderItem={(data: any) => <GroupCard key={data.index} {...data.item} />}
+        />
+      : <Text fontStyle="bold" style={styles.noDataText}>아직 저장된 그룹이 없습니다.</Text>
+    : <ActivityIndicator size={50} style={{marginTop: 100}} />
+  }</>;
+};
+
+const MemberList = (Props: { sortKey: SortKey; members?: Member[] }) => {
+  const [sorted, setData] = useSort(Props.members || [], Props.sortKey);
+  const reloadMembers = useDBStore((state: DBConnectionStoreTypes) => state.reloadMembers);
+  const [isRefreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    setData(Props.members || [])
+  }, [Props.members]);
+
+  return <>{sorted
+    ? sorted?.length > 0
+      ? <FlatList
+        style={styles.listContainer}
+        refreshing={isRefreshing}
+        onRefresh={async() => {
+          setRefreshing(true);
+          await reloadMembers();
+          setRefreshing(false);
+        }}
+        data={sorted}
+        numColumns={2}
+        renderItem={(data: any) => <MemberCard key={data.index} {...data.item} size="all" />}
+      />
+      : <Text fontStyle="bold" style={styles.noDataText}>아직 저장된 멤버가 없습니다.</Text>
+    : <ActivityIndicator size={50} style={{marginTop: 100}} />
+  }</>;
 };
 
 const styles = StyleSheet.create({
@@ -145,7 +132,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     height: TabHeaderHeight,
-    backgroundColor: cardBgColors[1],
+    backgroundColor: ThemeColors.red,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -153,20 +140,36 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "white",
-    fontFamily: "SCDream6",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
   filterContainer: {
     padding: 10,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    zIndex: 1,
   },
   listContainer: {
     backgroundColor: "white",
     paddingHorizontal: 10,
     paddingBottom: 10,
-    marginBottom: 10
+    marginBottom: 80,
+    height: "100%",
+  },
+  noDataText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#777777",
+    textAlign: "center",
+    marginTop: 80,
+  },
+  loadMemberBtn: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    marginHorizontal: 16,
+    marginBottom: 16,
   }
 });
 

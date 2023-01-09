@@ -10,8 +10,6 @@ export const StatusBarHeight = StatusBar.currentHeight || 24;
 export const NavbarHeight = ScreenHeight - WindowHeight + StatusBarHeight;
 
 export const CardHieght = 128;
-export const cardBgColors = ["#FEBB39", "#F8503E", "#3C7873"];
-export const HighlightColor = "#F8503E";
 
 export const StepComponentHeight = ScreenHeight - CardHieght - StatusBarHeight;
 

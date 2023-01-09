@@ -2,6 +2,7 @@ import { Platform, StyleSheet } from "react-native";
 // import Consts from "./const";
 
 export * from "./const"
+export * from "./colors"
 
 const styles = StyleSheet.create({
   shadow: {

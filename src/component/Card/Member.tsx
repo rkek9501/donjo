@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import { Group as GroupIcon, Bank } from "Component/Icons";
 import useBSStore, { BottomSheetStoreTypes } from "Store/bottomSheet";
 import { Member } from "DB/entities";
 import { ScreenWidth } from "src/styles";
+import Text from "Component/Text";
 
 interface MemberCardProps extends Member {
   size: "all" | "bank" | "group";
@@ -24,7 +25,7 @@ const Card = (Props: MemberCardProps) => {
     style={styles.container}
     onPress={() => onOpen("member", undefined, 9, Props)}
   >
-    <Text style={styles.name}>{Props.name}</Text>
+    <Text fontStyle="bold" style={styles.name}>{Props.name}</Text>
 
     {Props.size !== "bank" && <View style={{flexDirection: "row", marginTop: 8}}>
       <GroupIcon />
@@ -54,19 +55,15 @@ const styles = StyleSheet.create({
   name: {
     color: "#505050",
     fontSize: 16,
-    fontFamily: "S-CoreDream-6Bold",
-    fontWeight: "bold",
     marginBottom: 8
   },
   text: {
     color: "#505050",
-    fontFamily: "S-CoreDream-4Regular",
     fontSize: 14,
     marginLeft: 4,
   },
   account: {
     color: "#848484",
-    fontFamily: "S-CoreDream-4Regular",
     marginTop: 4,
   }
 });

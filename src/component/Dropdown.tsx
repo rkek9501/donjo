@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import Text from "Component/Text";
 import { Picker } from "@react-native-picker/picker";
 
 const DropdownHeight = 56;
 
-type DropdownValue = {
+export type DropdownItem = {
   name: string; 
+  value?: number;
 }
 type DropdownProps = {
-  values: DropdownValue[];
+  values: string[];
   label?: string;
   selected?: any;
   top?: boolean;
-  onChangeSelected?: (item: any) => void;
+  onChangeSelected?: (item: string) => void;
   onFocus?: () => void;
 };
 
 const Dropdown = (Props: DropdownProps) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(Props.selected || null);
+  const [selected, setSelected] = useState<string>(Props.selected || "선택안함");
+
+  useEffect(() => {
+    Props.onChangeSelected?.(selected)
+  }, [selected]);
 
   return <View style={styles.container}>
     <View style={styles.container}>
@@ -29,12 +34,14 @@ const Dropdown = (Props: DropdownProps) => {
           mode="dropdown"
           style={{ flex: 1, padding: 0, fontFamily: "S-CoreDream-6Bold" }}
           itemStyle={{ flex: 1, padding: 0, fontFamily: "S-CoreDream-6Bold" }}
-          selectedValue={selected}
+          selectedValue={Props.selected}
           onValueChange={(item) => setSelected(item)}
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}
         >
-          {Props.values.map((item, key) => <Picker.Item key={key} label={item.name} value={item} fontFamily="S-CoreDream-6Bold" />)}
+          {Props.values?.map((item, key) => {
+            return <Picker.Item key={key} label={item} value={item} fontFamily="S-CoreDream-6Bold" />
+          })}
         </Picker>
       </View>
     </View>

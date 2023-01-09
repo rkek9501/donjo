@@ -1,13 +1,11 @@
 import React from 'react';
+import { TouchableOpacity, StyleSheet, StyleProp, ViewStyle, GestureResponderEvent } from "react-native";
 
-import {
-  TouchableOpacity, Text,
-  StyleSheet, StyleProp, ViewStyle,
-  GestureResponderEvent
-} from "react-native";
+import { Text } from "Component/Text";
 
 type ButtonProps = {
   style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   title?: string;
   disabled?: boolean;
   onPress?: (e: GestureResponderEvent) => void;
@@ -30,23 +28,21 @@ const Button = (Props: ButtonProps) => {
   const font = {
     color: white ? "black" : "white",
     fontSize: small ? 16 : 18,
-    fontFamily: small ? "S-CoreDream-4Regular" : "S-CoreDream-6Bold",
-    fontWeight: small ? "normal" : "bold",
   };
   return <TouchableOpacity
     disabled={disabled} 
     style={[
       styles.container,
-      containerStyle,
       !disabled ? bgColor : styles.disabledContainer,
       round && { borderRadius: 26 },
-      round && white && { borderWidth: 2, borderColor: "black" }
+      round && white && { borderWidth: 2, borderColor: "black" },
+      containerStyle,
     ]}
     onPress={Props.onPress}>
     {Props?.prevIcon}
-    <Text style={[!disabled ? styles.button : styles.disabledButton, font]}>
+    {title && <Text fontStyle={small?"regular":"bold"} style={[!disabled ? styles.button : styles.disabledButton, font]}>
       {title}
-    </Text>
+    </Text>}
     {Props?.postIcon}
   </TouchableOpacity>
 }
@@ -59,7 +55,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     height: 52,
-    minWidth: 60,
+    // minWidth: 60,
     borderRadius: 5,
   },
   enabledContainer: {

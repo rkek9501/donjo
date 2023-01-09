@@ -23,6 +23,7 @@ const SearchBar = (Props: SearchBarProps) => {
 const styles = StyleSheet.create({
   searchContainer: {
     width: "100%",
+    height: 40,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "white",
     marginLeft: 10,
+    color: "black",
   },
 });
 

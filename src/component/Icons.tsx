@@ -25,12 +25,11 @@ export const CircleCross = (props: any) => <Svg width="20" height="20" viewBox="
   <Path fillRule="evenodd" clipRule="evenodd" d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 8.59L13.59 5L15 6.41L11.41 10L15 13.59L13.59 15L10 11.41L6.41 15L5 13.59L8.59 10L5 6.41L6.41 5L10 8.59Z" fill="#49454F"/>
 </Svg>;
 
-export const CircleCrossBlack = (props: any) =>  <Svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-  <Circle cx="9" cy="9" r="9" fill="#303030"/>
-  <Rect x="4.5459" y="5.81805" width="1.8" height="10.8" transform="rotate(-45 4.5459 5.81805)" fill="white"/>
-  <Rect x="12.1816" y="4.54535" width="1.8" height="10.8" transform="rotate(45 12.1816 4.54535)" fill="white"/>
-</Svg>
-
+export const CircleCrossWithBg = (props: any) =>  <Svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+  <Circle cx="9" cy="9" r="9" fill={props.bgColor || "#303030"}/>
+  <Rect x="4.5459" y="5.81805" width="1.8" height="10.8" transform="rotate(-45 4.5459 5.81805)" fill={props.crossColor || "white"}/>
+  <Rect x="12.1816" y="4.54535" width="1.8" height="10.8" transform="rotate(45 12.1816 4.54535)" fill={props.crossColor || "white"}/>
+</Svg>;
 
 export const Error = (props: any) => <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props} onPress={props.onPress}>
   <Path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 17V15H13V17H11ZM11 7V13H13V7H11Z" fill="#DC143C"/>
@@ -61,7 +60,18 @@ export const Layer = () => <Svg width="15" height="15" viewBox="0 0 15 15" fill=
 
 export const Person = () => <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
   <Path d="M10 1.66663C9.17591 1.66663 8.37033 1.911 7.68512 2.36884C6.99992 2.82668 6.46587 3.47742 6.1505 4.23878C5.83514 5.00014 5.75262 5.83791 5.91339 6.64617C6.07417 7.45442 6.471 8.19685 7.05372 8.77957C7.63644 9.36229 8.37887 9.75913 9.18712 9.9199C9.99538 10.0807 10.8332 9.99816 11.5945 9.68279C12.3559 9.36743 13.0066 8.83337 13.4645 8.14817C13.9223 7.46296 14.1667 6.65738 14.1667 5.83329C14.1667 4.72822 13.7277 3.66842 12.9463 2.88701C12.1649 2.10561 11.1051 1.66663 10 1.66663ZM10 8.33329C9.50555 8.33329 9.0222 8.18667 8.61107 7.91197C8.19995 7.63726 7.87952 7.24682 7.6903 6.79C7.50108 6.33319 7.45157 5.83052 7.54804 5.34557C7.6445 4.86061 7.8826 4.41516 8.23223 4.06553C8.58186 3.71589 9.02732 3.47779 9.51227 3.38133C9.99723 3.28487 10.4999 3.33437 10.9567 3.52359C11.4135 3.71281 11.804 4.03324 12.0787 4.44437C12.3534 4.85549 12.5 5.33884 12.5 5.83329C12.5 6.49633 12.2366 7.13222 11.7678 7.60106C11.2989 8.0699 10.663 8.33329 10 8.33329ZM17.5 17.5V16.6666C17.5 15.1195 16.8854 13.6358 15.7915 12.5418C14.6975 11.4479 13.2138 10.8333 11.6667 10.8333H8.33333C6.78624 10.8333 5.30251 11.4479 4.20854 12.5418C3.11458 13.6358 2.5 15.1195 2.5 16.6666V17.5H4.16667V16.6666C4.16667 15.5616 4.60565 14.5017 5.38705 13.7203C6.16846 12.9389 7.22826 12.5 8.33333 12.5H11.6667C12.7717 12.5 13.8315 12.9389 14.6129 13.7203C15.3943 14.5017 15.8333 15.5616 15.8333 16.6666V17.5H17.5Z" fill="black" />
-</Svg>
+</Svg>;
 
+export const ArrowBack = () => <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <Path d="M10.828 11.9997L15.778 16.9497L14.364 18.3637L8 11.9997L14.364 5.63574L15.778 7.04974L10.828 11.9997Z" fill="white"/>
+</Svg>;
+
+export const Check = (Props: { checked?: boolean }) => Props.checked ? <Svg width="24" height="25" viewBox="0 0 24 25" fill="none">
+  <Circle cx="12" cy="12.5" r="9" fill="black" stroke="black" stroke-width="2"/>
+  <Path d="M10 14.6701L16.59 8.08008L18 9.50008L10 17.5001L6 13.5001L7.41 12.0901L10 14.6701Z" fill="white"/>
+</Svg> : <Svg width="24" height="25" viewBox="0 0 24 25" fill="none">
+  <Circle cx="12" cy="12.5" r="9" stroke="black" stroke-width="2"/>
+  <Path d="M10 14.6701L16.59 8.08008L18 9.50008L10 17.5001L6 13.5001L7.41 12.0901L10 14.6701Z" fill="black"/>
+</Svg>;
 
 export default {};

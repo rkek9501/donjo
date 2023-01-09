@@ -42,10 +42,10 @@ const MemberModal = (Props: {
 
       <Text style={styles.label}>계좌번호</Text>
       <View style={{flexDirection:"row"}}>
-        <Dropdown
+        {/* <Dropdown
           selected={bank}
           onChangeSelected={setBank}
-          values={Banks} />
+          values={Banks} /> */}
         <Input
           style={{borderWidth: 0, borderRadius: 0}}
           containerStyle={{width:"65%", marginBottom: 8, marginLeft:4, backgroundColor: "#EDEDED"}}

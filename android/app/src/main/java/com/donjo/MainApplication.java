@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.picker.RNCPickerPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
@@ -97,7 +99,9 @@ public class MainApplication extends Application implements ReactApplication {
   // protected List<ReactPackage> getPackages() {
   //   return Arrays.<ReactPackage>asList(
   //     new MainReactPackage(),
-  //     new RealmReactPackage() // add this line
+            // new RNCPickerPackage(),
+  //     new SplashScreenReactPackage(),
+  //     new RealmReactPackage()
   //   );
   // }
 }

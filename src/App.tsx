@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { StatusBar, StyleSheet, useColorScheme } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import SplashScreen from 'react-native-splash-screen';
 import moment from "moment";
 moment.locale("ko");
 
@@ -14,6 +15,9 @@ const App = () => {
 
   useEffect(() => {
     initDBConnection();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 2000);
   }, []);
 
   return (<SafeAreaProvider>

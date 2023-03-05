@@ -226,6 +226,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - react-native-sqlite-storage (6.0.1):
     - React-Core
   - React-perflogger (0.68.2)
@@ -356,6 +358,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -422,6 +425,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-sqlite-storage:
     :path: "../node_modules/react-native-sqlite-storage"
   React-perflogger:
@@ -485,6 +490,7 @@ SPEC CHECKSUMS:
   React-logger: a0833912d93b36b791b7a521672d8ee89107aff1
   react-native-pager-view: 7abf89f9834d9a4021b2fb6a5ef2abff570b46fb
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
   React-perflogger: a18b4f0bd933b8b24ecf9f3c54f9bf65180f3fe6
   React-RCTActionSheet: 547fe42fdb4b6089598d79f8e1d855d7c23e2162
